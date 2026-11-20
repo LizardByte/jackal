@@ -160,6 +160,8 @@ a:hover { text-decoration-thickness: 0.13em; }
 
 .jackal-hero h1, .jackal-page-header h1 { margin: 0; font-size: clamp(2.85rem, 7vw, 5.8rem); }
 .jackal-hero h1 { max-width: 15ch; }
+.jackal-hero__title { white-space: pre-line; }
+.jackal-hero__accent { color: var(--jackal-accent); }
 .jackal-hero__copy > :last-child, .jackal-page-header > :last-child { margin-bottom: 0; }
 .jackal-main h2 { margin: 0 0 1.4rem; font-size: clamp(1.85rem, 4.5vw, 3rem); }
 .jackal-main h3 { margin: 0; font-size: 1.35rem; }

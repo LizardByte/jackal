@@ -32,14 +32,22 @@ require_fragment(home, %(href="#projects"))
 require_fragment(home, %(href="#{baseurl}/sunshine/"))
 
 sunshine = read_page(site_dir, "sunshine/index.html")
+require_fragment(sunshine, %(data-jackal-palette="sunshine"))
+require_fragment(sunshine, %(href="#{baseurl}/assets/jackal/product.css"))
+require_fragment(sunshine, "jackal-device-scene__handheld")
+require_fragment(sunshine, %(href="#{baseurl}/sunshine/"))
 require_fragment(sunshine, "sunshine-web-ui-dark.jpg")
 require_fragment(sunshine, %(href="#download"))
 
 themerr = read_page(site_dir, "themerr/index.html")
-require_fragment(themerr, %(href="#{baseurl}/assets/example/themerr.css"))
+require_fragment(themerr, %(data-jackal-palette="themerr"))
+require_fragment(themerr, %(data-default-theme="dark"))
+require_fragment(themerr, "jackal-hero--centered")
 require_fragment(themerr, %(href="https://themerr.lizardbyte.dev/ThemerrDB/"))
 
 koko = read_page(site_dir, "koko/index.html")
+require_fragment(koko, %(data-jackal-palette="koko"))
+require_fragment(koko, "jackal-media--bare")
 require_fragment(koko, "See the source code and current work")
 
 catalog = read_page(site_dir, "catalog/index.html")
@@ -49,7 +57,8 @@ require_fragment(catalog, %(href="#{baseurl}/catalog/index.json"))
 orgs = JSON.parse(File.read(File.join(site_dir, "catalog/index.json"))).map { |entry| entry.fetch("organization") }
 abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[KokoStreamTV SunshineStream Themerr]
 
-%w[assets/jackal/theme.js assets/jackal/jackal.css assets/example/catalog.js].each do |path|
+%w[assets/jackal/theme.js assets/jackal/jackal.css assets/jackal/product.css
+   assets/jackal/fonts/manrope.woff2 assets/example/catalog.js].each do |path|
   abort "Missing static asset #{path}" unless File.file?(File.join(site_dir, path))
 end
 

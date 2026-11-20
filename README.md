@@ -98,16 +98,16 @@ jackal:
   `styles` and `scripts` lists in front matter.
 - Adjust the theme tokens in your stylesheet. Set `--jackal-accent`,
   `--jackal-on-accent`, and `--jackal-accent-soft` together so buttons and links
-  remain readable in both modes. See [Themerr's example palette](example/assets/example/themerr.css).
+  remain readable in both modes. The built-in product palettes use the same tokens and can be
+  overridden by a site's own stylesheet.
 
 ## Layouts
 
 - `home` displays a hero, content, sections, and recent posts. Set
   `show_posts: false` to hide the post list, or use `posts_title` and
   `posts_limit` to customize it.
-- `product` displays a hero, page content, and reusable sections. Optional
-  `hero.image` fields include `dark_src`, `width`, `height`, and `caption`.
-  Set `alt` to describe informative images.
+- `product` displays a branded hero, page content, and reusable sections. It uses
+  [Manrope](assets/jackal/fonts/OFL-Manrope.txt) for product pages.
 - `page` and `post` provide a reading layout. Use `blog` for a post index.
 - `catalog` provides a full-width layout for a data browser. Catalogs can use the
   theme's grid, table, and toolbar styles with their own data and JavaScript.
@@ -122,9 +122,28 @@ Product and home pages build their content using these section types:
 - `custom` for a site-owned template in `_includes`. Set `template` to its
   filename and read any section fields with `include.section`.
 
-See the [Sunshine example](example/sunshine.md) and [Themerr example](example/themerr.md)
-for concrete front matter. Use [the catalog example](example/catalog/index.html)
-as a starting point for a project with its own generated data.
+Use [the catalog example](example/catalog/index.html) as a starting point for a
+project with its own generated data.
+
+### Product pages
+
+Set `product` in a page's front matter, or `jackal.product` in `_config.yml`
+to configure the site's product branding. Choose `palette: sunshine` for warm
+neutrals and orange, `themerr` for plum and coral, or `koko` for greens.
+Set `name`, `logo`, `url`, `nav`, and an optional `action` with `label` and
+`url` to customize the header. `default_theme` accepts `system`, `light`, or
+`dark`. A visitor's saved choice takes precedence.
+
+The hero accepts an `eyebrow`, an accent-colored ending in `accent`, a
+`note`, and a list of `highlights`. Use `alignment: center` for a
+centered hero. Use `image` for a screenshot or illustration, with optional
+`dark_src`, `width`, `height`, and `caption`. Set `presentation: bare`
+on the image to omit its frame. Use `devices` with `src`, `alt`, and
+an optional `label` to show one image on a monitor and handheld.
+
+- [Sunshine](example/sunshine.md) uses a split hero and a reusable streaming device scene.
+- [Themerr](example/themerr.md) uses a centered hero with a dark default and media-server links.
+- [Koko](example/koko.md) uses a split hero with a frameless illustration.
 
 When migrating a site, keep its existing `url`, `baseurl`, permalinks, feeds, and redirects.
 Keep generated data, release assets, and downloads at their existing public paths.

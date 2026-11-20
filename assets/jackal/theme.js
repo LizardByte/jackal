@@ -1,7 +1,8 @@
 (() => {
   const modes = ['system', 'light', 'dark'];
   const storageKey = 'jackal-color-mode';
-  let mode = 'system';
+  const defaultTheme = document.currentScript?.dataset.defaultTheme;
+  let mode = modes.includes(defaultTheme) ? defaultTheme : 'system';
 
   try {
     const saved = window.localStorage.getItem(storageKey);

@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% assign jackal_title = site.jackal.name | default: site.title %}
+  {% assign jackal_title = jackal_product.name | default: site.jackal.name | default: site.title %}
   {% assign jackal_description = page.description | default: page.hero.description | default: site.description %}
   <title>{% if page.title and page.title != jackal_title %}{{ page.title | escape }} · {% endif %}{{ jackal_title | escape }}</title>
   {% if jackal_description %}
@@ -10,11 +10,16 @@
   {% if site.url and site.url != empty %}
     <link rel="canonical" href="{{ page.url | absolute_url | escape }}">
   {% endif %}
-  {% if site.jackal.icon %}
-    <link rel="icon" href="{% include jackal/url.html url=site.jackal.icon %}">
+  {% assign jackal_icon = jackal_product.icon | default: site.jackal.icon %}
+  {% if jackal_icon %}
+    <link rel="icon" href="{% include jackal/url.html url=jackal_icon %}">
   {% endif %}
-  <script src="{{ '/assets/jackal/theme.js' | relative_url }}"></script>
+  <script src="{{ '/assets/jackal/theme.js' | relative_url }}"{% if jackal_product.default_theme %}
+    data-default-theme="{{ jackal_product.default_theme | escape }}"{% endif %}></script>
   <link rel="stylesheet" href="{{ '/assets/jackal/jackal.css' | relative_url }}">
+  {% if page.layout == 'product' or jackal_product %}
+    <link rel="stylesheet" href="{{ '/assets/jackal/product.css' | relative_url }}">
+  {% endif %}
   {% for jackal_style in site.jackal.styles %}
     <link rel="stylesheet" href="{% include jackal/url.html url=jackal_style %}">
   {% endfor %}

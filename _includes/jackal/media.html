@@ -1,5 +1,5 @@
 {% assign jackal_image = include.image %}
-<figure class="jackal-media">
+<figure class="jackal-media{% if jackal_image.presentation == 'bare' %} jackal-media--bare{% endif %}">
   <img{% if jackal_image.dark_src %} class="jackal-media__light"{% endif %}
        src="{% include jackal/url.html url=jackal_image.src %}" alt="{{ jackal_image.alt | escape }}"
        {% unless include.eager %}loading="lazy"{% endunless %} decoding="async"

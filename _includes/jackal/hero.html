@@ -1,14 +1,28 @@
 {% assign jackal_hero = include.hero %}
-<header class="jackal-wrap jackal-hero{% if jackal_hero.image.src %} jackal-hero--with-image{% endif %}">
+<header class="jackal-wrap jackal-hero
+  {% if jackal_hero.image.src or jackal_hero.devices.src %}jackal-hero--with-image{% endif %}
+  {% if jackal_hero.alignment == 'center' %}jackal-hero--centered{% endif %}">
   <div class="jackal-hero__copy">
-    <h1>{{ jackal_hero.title | default: page.title | default: site.title | escape }}</h1>
+    {% if jackal_hero.eyebrow %}<p class="jackal-eyebrow">{{ jackal_hero.eyebrow | escape }}</p>{% endif %}
+    <h1>
+      <span class="jackal-hero__title">{{ jackal_hero.title | default: page.title | default: site.title | escape }}</span>
+      {% if jackal_hero.accent %}<span class="jackal-hero__accent">{{ jackal_hero.accent | escape }}</span>{% endif %}
+    </h1>
     {% assign jackal_hero_description = jackal_hero.description | default: page.description %}
     {% if jackal_hero_description %}
       <p class="jackal-lede">{{ jackal_hero_description | escape }}</p>
     {% endif %}
     {% include jackal/actions.html actions=jackal_hero.actions %}
+    {% if jackal_hero.note %}<p class="jackal-hero__note">{{ jackal_hero.note | escape }}</p>{% endif %}
+    {% if jackal_hero.highlights.size > 0 %}
+      <ul class="jackal-hero__highlights">
+        {% for jackal_highlight in jackal_hero.highlights %}<li>{{ jackal_highlight | escape }}</li>{% endfor %}
+      </ul>
+    {% endif %}
   </div>
-  {% if jackal_hero.image.src %}
+  {% if jackal_hero.devices.src %}
+    {% include jackal/devices.html devices=jackal_hero.devices %}
+  {% elsif jackal_hero.image.src %}
     {% include jackal/media.html image=jackal_hero.image eager=true %}
   {% endif %}
 </header>

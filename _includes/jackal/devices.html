@@ -1,0 +1,11 @@
+{% assign jackal_devices = include.devices %}
+{% capture jackal_device_image %}{% include jackal/url.html url=jackal_devices.src %}{% endcapture %}
+<div class="jackal-device-scene" role="img" aria-label="{{ jackal_devices.alt | escape }}">
+  <div class="jackal-device-scene__monitor">
+    <img src="{{ jackal_device_image }}" alt="" fetchpriority="high">
+    {% if jackal_devices.label %}<span>{{ jackal_devices.label | escape }}</span>{% endif %}
+  </div>
+  <div class="jackal-device-scene__handheld">
+    <img src="{{ jackal_device_image }}" alt="">
+  </div>
+</div>
