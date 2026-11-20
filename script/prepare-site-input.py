@@ -8,8 +8,10 @@ from pathlib import Path
 def directory_inside(root, value):
     """Resolve an existing directory relative to the checkout."""
     path = (root / value).resolve()
-    if "\n" in str(path) or "\r" in str(path) or not path.is_relative_to(root) or not path.is_dir():
-        raise SystemExit(f"Expected a directory inside the checkout: {value!r}")
+    if "\n" in str(path) or "\r" in str(path):
+        raise SystemExit("A directory path cannot contain line breaks")
+    if not path.is_relative_to(root) or not path.is_dir():
+        raise SystemExit(f"Not a directory inside the checkout: {value!r}")
     return path
 
 
@@ -21,7 +23,8 @@ def overlay_generated(source, generated):
         target = (source / relative).resolve()
         if entry.is_symlink() or not target.is_relative_to(source):
             raise SystemExit(f"Unsupported generated path: {relative}")
-        if ".git" in relative.parts or ".git" in target.relative_to(source).parts:
+        target_parts = target.relative_to(source).parts
+        if ".git" in relative.parts or ".git" in target_parts:
             raise SystemExit(f"Unsupported generated path: {relative}")
     shutil.copytree(generated, source, dirs_exist_ok=True)
 
@@ -38,8 +41,10 @@ def main():
         generated = temp / "jackal-generated"
         if archive_name:
             archive = generated / archive_name
-            if Path(archive_name).name != archive_name or not archive.is_file() or archive.is_symlink():
-                raise SystemExit("extract_archive must name a file at the root of site_artifact")
+            if Path(archive_name).name != archive_name:
+                raise SystemExit("extract_archive must be a filename")
+            if not archive.is_file() or archive.is_symlink():
+                raise SystemExit("Archive not found at the root of site_artifact")
             generated = temp / "jackal-extracted"
             if archive.suffix.lower() == ".zip":
                 shutil.unpack_archive(archive, generated, format="zip")
