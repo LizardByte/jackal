@@ -15,21 +15,21 @@ def read_page(site_dir, path)
   html
 end
 
+post_path = "2026-01-01-a-home-for-each-project/"
 pages = %w[index.html sunshine/index.html themerr/index.html koko/index.html catalog/index.html
-           blog/index.html 2026-01-01-a-home-for-each-project/index.html about/index.html]
+           blog/index.html about/index.html] + ["#{post_path}index.html"]
 
 pages.each do |path|
   html = read_page(site_dir, path)
+  require_fragment(html, %(href="#{baseurl}/assets/jackal/landing.css"))
+  require_fragment(html, %(src="#{baseurl}/assets/jackal/landing/theme.js"))
   product = path.split("/").first
   if %w[sunshine themerr koko].include?(product)
-    require_fragment(html, %(href="#{baseurl}/assets/jackal/landing.css"))
     require_fragment(html, %(href="#{baseurl}/assets/example/#{product}-brand.css"))
-    require_fragment(html, %(src="#{baseurl}/assets/jackal/landing/theme.js"))
     require_fragment(html, %(href="#{baseurl}/#{product}/"))
     require_fragment(html, 'class="footer-top"')
   else
     require_fragment(html, %(href="#{baseurl}/assets/jackal/jackal.css"))
-    require_fragment(html, %(src="#{baseurl}/assets/jackal/theme.js"))
   end
   require_fragment(html, %(href="#{umbrella_url.sub(%r{/$}, "")}/support/"))
   public_path = path.delete_suffix("index.html")
@@ -37,6 +37,10 @@ pages.each do |path|
 end
 
 home = read_page(site_dir, "index.html")
+require_fragment(home, 'class="hero hero--centered"')
+require_fragment(home, 'class="client-grid"')
+require_fragment(home, 'class="navigation-group"')
+require_fragment(home, %(href="#{baseurl}/#{post_path}"))
 require_fragment(home, %(href="#projects"))
 require_fragment(home, %(href="#{baseurl}/sunshine/"))
 
@@ -70,7 +74,7 @@ require_fragment(catalog, %(href="#{baseurl}/catalog/index.json"))
 orgs = JSON.parse(File.read(File.join(site_dir, "catalog/index.json"))).map { |entry| entry.fetch("organization") }
 abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[KokoStreamTV SunshineStream Themerr]
 
-%w[assets/jackal/theme.js assets/jackal/jackal.css assets/jackal/landing/theme.js assets/jackal/landing.css
+%w[assets/jackal/jackal.css assets/jackal/landing/theme.js assets/jackal/landing.css
    assets/jackal/landing/chrome.css assets/jackal/landing/sections.css assets/jackal/fonts/manrope.woff2
    assets/example/catalog.js assets/example/sunshine.js assets/example/sunshine-brand.css
    assets/example/themerr-brand.css assets/example/koko-brand.css].each do |path|

@@ -20,7 +20,7 @@
   </p>
 {% endif %}
 <h1 id="hero-title">
-  {{- jackal_hero.title | default: page.title | escape | newline_to_br -}}
+  {{- jackal_hero.title | default: page.title | default: site.title | escape | newline_to_br -}}
   {%- if jackal_hero.accent -%}
     {%- if jackal_composition == 'centered' -%}
       {{ ' ' }}<em>{{ jackal_hero.accent | escape }}</em>

@@ -1,7 +1,7 @@
 {% if include.actions.size > 0 %}
   <div class="jackal-actions">
     {% for jackal_action in include.actions %}
-      <a class="jackal-button{% if jackal_action.primary %} jackal-button--primary{% endif %}"
+      <a class="{% if jackal_action.primary %}button button-primary{% elsif include.text %}text-link{% else %}button button-outline{% endif %}"
          href="{% include jackal/url.html url=jackal_action.url scope=jackal_action.scope %}">
         {{- jackal_action.label | escape -}}
       </a>

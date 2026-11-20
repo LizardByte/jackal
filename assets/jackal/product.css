@@ -1,17 +1,5 @@
-@font-face {
-  font-family: Manrope;
-  src: url("./fonts/manrope.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 200 800;
-  font-display: swap;
-}
-
 .jackal-product {
-  --jackal-font: Manrope, system-ui, sans-serif;
-  --jackal-max-width: 80rem;
   --jackal-radius: 1.25rem;
-  --jackal-product-button: var(--jackal-button, var(--jackal-ink));
-  --jackal-product-button-ink: var(--jackal-on-button, var(--jackal-paper));
   --jackal-product-glow: transparent;
 }
 
@@ -85,12 +73,6 @@
   color: var(--jackal-muted);
   font-size: 0.85rem;
   font-weight: 700;
-}
-
-.jackal-product .jackal-button--primary {
-  border-color: var(--jackal-product-button);
-  background: var(--jackal-product-button);
-  color: var(--jackal-product-button-ink);
 }
 
 .jackal-product .jackal-card { padding: clamp(1.15rem, 3.2vw, 2.2rem); }

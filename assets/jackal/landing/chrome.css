@@ -22,6 +22,31 @@
 }
 .navigation a, .footer-bottom nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .navigation a:hover, .site-footer nav a:hover { color: var(--jackal-accent); }
+.navigation a[aria-current="page"] { color: var(--jackal-accent); }
+.navigation-group { position: relative; }
+.navigation-group summary { display: flex; align-items: center; gap: .5rem; min-height: 44px; list-style: none; }
+.navigation-group summary::-webkit-details-marker { display: none; }
+.navigation-group summary::after {
+  content: "";
+  width: .42rem;
+  height: .42rem;
+  border-inline-end: 1px solid currentColor;
+  border-block-end: 1px solid currentColor;
+  transform: translateY(-.13rem) rotate(45deg);
+}
+.navigation-dropdown {
+  position: absolute;
+  z-index: 6;
+  inset-inline-end: 0;
+  min-width: max-content;
+  margin: 0;
+  padding: .35rem .85rem;
+  border: 1px solid var(--jackal-border);
+  border-radius: .55rem;
+  background: var(--jackal-surface);
+  list-style: none;
+}
+.navigation-dropdown a { width: 100%; }
 .header-actions { display: flex; align-items: center; gap: .65rem; }
 .theme-toggle {
   display: grid;
@@ -63,6 +88,7 @@
 .site-header--menu .brand { gap: 8px; font-size: 29px; letter-spacing: -1.5px; }
 .site-header--menu .navigation { gap: 30px; color: inherit; font-size: 14px; font-weight: 600; }
 .site-header--menu .navigation a { gap: 2px; min-height: 0; padding: 10px 0; }
+.site-header--menu .navigation-group summary { min-height: 0; padding-block: 10px; }
 .site-header--menu .header-action {
   display: inline-flex;
   align-items: center;
@@ -189,6 +215,8 @@
     box-shadow: 0 12px 15px #2929250a;
   }
   .site-header--menu .navigation.is-open a { font-size: 13px; padding-block: 12px; }
+  .site-header--menu .navigation-group summary { font-size: 13px; padding-block: 12px; }
+  .site-header--menu .navigation-dropdown { position: static; width: 100%; }
   .site-header--menu .header-action { font-size: 10px; gap: 5px; padding: 11px; }
   .site-footer--inline .footer-top { flex-wrap: wrap; }
   .site-footer--inline .footer-top > p { order: 3; flex-basis: 100%; }

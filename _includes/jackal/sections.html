@@ -1,16 +1,21 @@
 {% for jackal_section in include.sections %}
-  <section class="jackal-wrap jackal-section{% if jackal_section.type == 'callout' %} jackal-section--callout{% endif %}"
+  <section class="jackal-wrap jackal-section{% if include.landing %} section{% endif %}{% if jackal_section.type == 'callout' %} jackal-section--callout{% endif %}"
            {% if jackal_section.id %}id="{{ jackal_section.id | escape }}"{% endif %}>
-    {% if jackal_section.title %}<h2>{{ jackal_section.title | escape }}</h2>{% endif %}
-    {% if jackal_section.description %}<p class="jackal-lede">{{ jackal_section.description | escape }}</p>{% endif %}
+    {% if include.landing %}<div class="section-heading--editorial">{% endif %}
+      {% if jackal_section.title %}<h2>{{ jackal_section.title | escape }}</h2>{% endif %}
+      {% if jackal_section.description %}<p class="jackal-lede">{{ jackal_section.description | escape }}</p>{% endif %}
+    {% if include.landing %}</div>{% endif %}
     {% case jackal_section.type %}
       {% when 'cards' %}
-        <div class="jackal-grid">
+        <div class="{% if include.landing %}client-grid{% else %}jackal-grid{% endif %}">
           {% for jackal_card in jackal_section.items %}
-            <article class="jackal-card">
+            <article class="{% if include.landing %}client-card{% else %}jackal-card{% endif %}">
+              {% if jackal_card.logo %}
+                <img class="jackal-card-logo" src="{% include jackal/url.html url=jackal_card.logo %}" width="38" height="38" alt="">
+              {% endif %}
               <h3>{{ jackal_card.title | escape }}</h3>
               {% if jackal_card.description %}<div class="jackal-prose">{{ jackal_card.description | markdownify }}</div>{% endif %}
-              {% include jackal/actions.html actions=jackal_card.actions %}
+              {% include jackal/actions.html actions=jackal_card.actions text=include.landing %}
             </article>
           {% endfor %}
         </div>

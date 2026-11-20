@@ -1,24 +1,6 @@
-<!doctype html>
+---
+layout: jackal
+---
 {% assign jackal_product = page.product | default: site.jackal.product %}
-{% assign jackal_menu = false %}
-{% if jackal_product.navigation == 'menu' %}{% assign jackal_menu = true %}{% endif %}
-<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}"
-      data-jackal-container="{{ jackal_product.container | default: 'standard' | escape }}"
-      data-jackal-density="{{ jackal_product.density | default: 'comfortable' | escape }}"
-      data-jackal-type="{{ jackal_product.typography | default: 'standard' | escape }}">
-  {% include jackal/head.html landing=true %}
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    {% unless jackal_product.icon_style == 'glyph' %}
-      {% assign jackal_icons = jackal_product.icons | default: 'jackal/landing/icons.html' %}
-      {% include {{ jackal_icons }} %}
-    {% endunless %}
-    {% include jackal/landing/header.html %}
-    <main id="main">
-      {% if page.hero %}{% include jackal/landing/hero.html hero=page.hero %}{% endif %}
-      {{ content }}
-    </main>
-    {% include jackal/landing/footer.html %}
-    {% include jackal/scripts.html %}
-  </body>
-</html>
+{% if page.hero %}{% include jackal/landing/hero.html hero=page.hero %}{% endif %}
+{{ content }}

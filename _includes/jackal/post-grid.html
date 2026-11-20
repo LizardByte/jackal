@@ -1,7 +1,7 @@
-<div class="jackal-grid">
+<div class="media-grid">
   {% assign jackal_post_limit = include.limit | default: include.posts.size %}
   {% for jackal_post in include.posts limit: jackal_post_limit %}
-    <article class="jackal-card">
+    <article class="media-category jackal-post-card">
       <time class="jackal-meta" datetime="{{ jackal_post.date | date_to_xmlschema }}">
         {{ jackal_post.date | date_to_string }}
       </time>

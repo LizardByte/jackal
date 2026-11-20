@@ -27,7 +27,7 @@
     --jackal-button: var(--jackal-ink);
     --jackal-on-button: var(--jackal-paper);
     --jackal-button-hover: light-dark(#4c4b43, #ded9ca);
-    --jackal-hero-glow: transparent;
+    --jackal-hero-glow: color-mix(in srgb, var(--jackal-accent-soft) 70%, transparent);
     --jackal-panel-glow: transparent;
     --jackal-device-surface: var(--jackal-muted-surface);
     --jackal-device-border: var(--jackal-border);
@@ -66,7 +66,7 @@
   :focus-visible { outline: 3px solid var(--jackal-accent); outline-offset: 5px; }
   [id] { scroll-margin-block-start: 2rem; }
 
-  :where(.wrap, .shell) {
+  :where(.wrap, .shell, .jackal-wrap) {
     width: min(calc(100% - 2 * var(--jackal-landing-gutter)), var(--jackal-landing-width));
     margin-inline: auto;
   }

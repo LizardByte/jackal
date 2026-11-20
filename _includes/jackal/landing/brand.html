@@ -1,5 +1,7 @@
-{%- assign jackal_brand_url = jackal_product.url | default: page.url -%}
-{%- assign jackal_brand_name = jackal_product.name | default: site.title -%}
+{%- assign jackal_brand_home = '/' -%}
+{%- if page.layout == 'landing' -%}{%- assign jackal_brand_home = page.url -%}{%- endif -%}
+{%- assign jackal_brand_url = jackal_product.url | default: jackal_brand_home -%}
+{%- assign jackal_brand_name = jackal_product.name | default: site.jackal.name | default: site.title -%}
 {%- assign jackal_brand_logo = jackal_product.logo | default: site.jackal.logo -%}
 <a class="brand" href="{% include jackal/url.html url=jackal_brand_url %}" aria-label="{{ jackal_brand_name | escape }} home">
   {% if jackal_brand_logo %}

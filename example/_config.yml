@@ -10,6 +10,8 @@ liquid:
 
 jackal:
   name: Jackal
+  product:
+    navigation: menu
   umbrella:
     name: LizardByte
     url: https://app.lizardbyte.dev/

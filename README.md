@@ -102,7 +102,8 @@ jackal:
 
 ## Layouts
 
-- `home` displays a hero, content, sections, and recent posts. Set
+- `home` displays the shared landing hero, project sections, and recent posts. The hero
+  is centered by default. Set
   `show_posts: false` to hide the post list, or use `posts_title` and
   `posts_limit` to customize it.
 - `product` displays a branded hero, page content, and reusable sections. It uses
@@ -112,7 +113,8 @@ jackal:
 - `page` and `post` provide a reading layout. Use `blog` for a post index.
 - `catalog` provides a full-width layout for a data browser. Catalogs can use the
   theme's grid, table, and toolbar styles with their own data and JavaScript.
-- `jackal` provides the base layout for a custom page.
+- `jackal` provides the shared navigation, footer, typography, and theme controls
+  for all layouts and custom pages.
 
 Product and home pages build their content using these section types:
 

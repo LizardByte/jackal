@@ -1,5 +1,5 @@
 {%- assign jackal_hero = include.hero -%}
-{%- assign jackal_composition = jackal_hero.layout | default: 'illustrated' -%}
+{%- assign jackal_composition = include.composition | default: jackal_hero.layout | default: 'illustrated' -%}
 {%- case jackal_composition -%}
   {%- when 'centered' -%}
     <div class="hero hero--centered">
