@@ -21,7 +21,7 @@ jobs:
       contents: read
     with:
       source_dir: example
-      config_files: example/_config.yml,example/_preview.yml
+      config_files: example/_config.yml
 
   verify-preview:
     name: Verify the rendered preview
@@ -45,8 +45,8 @@ jobs:
 
       - name: Verify the published paths
         run: |
-          ruby script/verify-preview.rb "$RUNNER_TEMP/preview/previews/42/ThemerrDB" \
-            /previews/42/ThemerrDB /previews/42 https://preview.example.org
+          ruby script/verify-preview.rb "$RUNNER_TEMP/preview" '' \
+            https://app.lizardbyte.dev/ https://example.org
 
       - name: Test the Docker preview
         run: |
@@ -54,8 +54,8 @@ jobs:
             --mount "type=bind,source=$RUNNER_TEMP/preview,target=/usr/share/nginx/html,readonly" nginx:alpine)
           trap 'docker stop "$container" >/dev/null' EXIT
           curl --retry 5 --retry-all-errors -fsS http://127.0.0.1:8080/ -o "$RUNNER_TEMP/preview-index.html"
-          grep 'url=/previews/42/ThemerrDB/' "$RUNNER_TEMP/preview-index.html"
-          curl -fsS http://127.0.0.1:8080/previews/42/ThemerrDB/catalog/index.json | grep 'SunshineStream'
+          grep -F 'href="#projects"' "$RUNNER_TEMP/preview-index.html"
+          curl -fsS http://127.0.0.1:8080/catalog/index.json | grep 'SunshineStream'
 
   comment-preview:
     name: Post the preview command
@@ -88,13 +88,21 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
-      - name: Build and verify both URL layouts
+      - name: Build and verify the root site
         run: |
           bundle exec jekyll build --source example --destination _site/root --config example/_config.yml
           ruby script/verify-preview.rb _site/root '' https://app.lizardbyte.dev/ https://example.org
-          bundle exec jekyll build --source example --destination _site/nested \
-            --config example/_config.yml,example/_preview.yml
-          ruby script/verify-preview.rb _site/nested /previews/42/ThemerrDB /previews/42 https://preview.example.org
+
+      - name: Build and verify a nested preview
+        env:
+          JEKYLL_SOURCE: ${{ github.workspace }}/example
+          CONFIG_FILES: example/_config.yml,example/_preview.yml
+          PREVIEW: 'true'
+        run: |
+          bundle exec ruby script/build-site.rb
+          ruby script/verify-preview.rb "$RUNNER_TEMP/jackal-preview/previews/42/ThemerrDB" \
+            /previews/42/ThemerrDB /previews/42 https://preview.example.org
+          grep -F 'url=/previews/42/ThemerrDB/' "$RUNNER_TEMP/jackal-preview/index.html"
 
       - name: Check the preview comment and build the gem
         run: |
