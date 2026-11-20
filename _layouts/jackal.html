@@ -10,11 +10,6 @@
       {{ content }}
     </main>
     {% include jackal/footer.html %}
-    {% for jackal_script in site.jackal.scripts %}
-      <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
-    {% endfor %}
-    {% for jackal_script in page.scripts %}
-      <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
-    {% endfor %}
+    {% include jackal/scripts.html %}
   </body>
 </html>

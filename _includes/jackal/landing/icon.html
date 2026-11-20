@@ -1,0 +1,7 @@
+{%- if include.name -%}
+  {%- if jackal_preset == 'themerr' -%}
+    <span aria-hidden="true">↗</span>
+  {%- else -%}
+    <svg aria-hidden="true" class="icon{% if include.small %} small{% endif %}"><use href="#{{ include.name | escape }}"/></svg>
+  {%- endif -%}
+{%- endif -%}

@@ -108,6 +108,8 @@ jackal:
   `posts_limit` to customize it.
 - `product` displays a branded hero, page content, and reusable sections. It uses
   [Manrope](assets/jackal/fonts/OFL-Manrope.txt) for product pages.
+- `landing` applies a complete landing-page preset, with the product sites' original
+  section styles and a shared header, footer, and theme switcher.
 - `page` and `post` provide a reading layout. Use `blog` for a post index.
 - `catalog` provides a full-width layout for a data browser. Catalogs can use the
   theme's grid, table, and toolbar styles with their own data and JavaScript.
@@ -141,9 +143,25 @@ centered hero. Use `image` for a screenshot or illustration, with optional
 on the image to omit its frame. Use `devices` with `src`, `alt`, and
 an optional `label` to show one image on a monitor and handheld.
 
-- [Sunshine](example/sunshine.md) uses a split hero and a reusable streaming device scene.
-- [Themerr](example/themerr.md) uses a centered hero with a dark default and media-server links.
-- [Koko](example/koko.md) uses a split hero with a frameless illustration.
+### Landing pages
+
+Use `layout: landing` for a site adopting one of the existing product designs. Set
+`product.palette` to `sunshine`, `themerr`, or `koko`. The preset styles the
+header, footer, and main content. Supply the page body using the same HTML section
+classes as its example. Header navigation and actions use the `product` settings
+above. Set `product.footer.tagline`, `product.footer.action`, and
+`product.footer.links` for the footer. A link with `scope: umbrella` resolves
+against the umbrella site, including under a nested preview URL.
+
+To switch a `picture` source with the selected theme, add `data-jackal-dark-image`
+to its dark-mode `source` and supply the default image in the `img` element.
+
+- [Sunshine](example/sunshine.html) includes the device scene, setup illustration, clients, and download grid.
+- [Themerr](example/themerr.html) includes the centered coral hero, server features, and setup panels.
+- [Koko](example/koko.html) includes the collection artwork, media categories, and development panel.
+
+The landing presets adapt styles from the three product-site repositories. Files
+adapted from Sunshine and Koko carry their [AGPL-3.0 license](assets/jackal/landing/AGPL-3.0.txt).
 
 When migrating a site, keep its existing `url`, `baseurl`, permalinks, feeds, and redirects.
 Keep generated data, release assets, and downloads at their existing public paths.

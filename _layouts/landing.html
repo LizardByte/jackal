@@ -1,0 +1,23 @@
+<!doctype html>
+{% assign jackal_product = page.product | default: site.jackal.product %}
+{% assign jackal_presets = 'sunshine,themerr,koko' | split: ',' %}
+{% assign jackal_preset = jackal_product.palette %}
+{% unless jackal_presets contains jackal_preset %}
+  {% assign jackal_preset = 'koko' %}
+{% endunless %}
+<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}">
+  {% include jackal/head.html landing=true %}
+  <body>
+    <a class="{% if jackal_preset == 'sunshine' %}skip-link{% else %}skip{% endif %}" href="#main">Skip to content</a>
+    {% if jackal_preset == 'sunshine' or jackal_preset == 'koko' %}
+      {% assign jackal_icons = 'jackal/landing/' | append: jackal_preset | append: '-icons.html' %}
+      {% include {{ jackal_icons }} %}
+    {% endif %}
+    {% include jackal/landing/header.html %}
+    <main id="main">
+      {{ content }}
+    </main>
+    {% include jackal/landing/footer.html %}
+    {% include jackal/scripts.html %}
+  </body>
+</html>

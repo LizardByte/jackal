@@ -3,7 +3,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% assign jackal_title = jackal_product.name | default: site.jackal.name | default: site.title %}
   {% assign jackal_description = page.description | default: page.hero.description | default: site.description %}
-  <title>{% if page.title and page.title != jackal_title %}{{ page.title | escape }} · {% endif %}{{ jackal_title | escape }}</title>
+  {% if include.landing %}
+    <title>{{ page.title | default: jackal_title | escape }}</title>
+  {% else %}
+    <title>{% if page.title and page.title != jackal_title %}{{ page.title | escape }} · {% endif %}{{ jackal_title | escape }}</title>
+  {% endif %}
   {% if jackal_description %}
     <meta name="description" content="{{ jackal_description | strip_html | strip_newlines | escape }}">
   {% endif %}
@@ -14,11 +18,22 @@
   {% if jackal_icon %}
     <link rel="icon" href="{% include jackal/url.html url=jackal_icon %}">
   {% endif %}
-  <script src="{{ '/assets/jackal/theme.js' | relative_url }}"{% if jackal_product.default_theme %}
-    data-default-theme="{{ jackal_product.default_theme | escape }}"{% endif %}></script>
-  <link rel="stylesheet" href="{{ '/assets/jackal/jackal.css' | relative_url }}">
-  {% if page.layout == 'product' or jackal_product %}
-    <link rel="stylesheet" href="{{ '/assets/jackal/product.css' | relative_url }}">
+  {% if include.landing %}
+    {% assign jackal_default_theme = jackal_product.default_theme %}
+    {% if jackal_default_theme == nil and jackal_preset == 'themerr' %}
+      {% assign jackal_default_theme = 'dark' %}
+    {% endif %}
+    <script src="{{ '/assets/jackal/landing/theme.js' | relative_url }}"
+            data-default-theme="{{ jackal_default_theme | default: 'system' | escape }}"></script>
+    {% assign jackal_landing_css = '/assets/jackal/landing/' | append: jackal_preset | append: '.css' %}
+    <link rel="stylesheet" href="{{ jackal_landing_css | relative_url }}">
+  {% else %}
+    <script src="{{ '/assets/jackal/theme.js' | relative_url }}"{% if jackal_product.default_theme %}
+      data-default-theme="{{ jackal_product.default_theme | escape }}"{% endif %}></script>
+    <link rel="stylesheet" href="{{ '/assets/jackal/jackal.css' | relative_url }}">
+    {% if page.layout == 'product' or jackal_product %}
+      <link rel="stylesheet" href="{{ '/assets/jackal/product.css' | relative_url }}">
+    {% endif %}
   {% endif %}
   {% for jackal_style in site.jackal.styles %}
     <link rel="stylesheet" href="{% include jackal/url.html url=jackal_style %}">
