@@ -1,0 +1,11 @@
+---
+layout: jackal
+---
+<article class="jackal-wrap jackal-reading">
+  {% include jackal/page-header.html %}
+  <p class="jackal-meta">
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
+    {% if page.author %}<span> · {{ page.author | escape }}</span>{% endif %}
+  </p>
+  <div class="jackal-prose">{{ content }}</div>
+</article>

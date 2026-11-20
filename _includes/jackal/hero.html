@@ -1,0 +1,14 @@
+{% assign jackal_hero = include.hero %}
+<header class="jackal-wrap jackal-hero{% if jackal_hero.image.src %} jackal-hero--with-image{% endif %}">
+  <div class="jackal-hero__copy">
+    <h1>{{ jackal_hero.title | default: page.title | default: site.title | escape }}</h1>
+    {% assign jackal_hero_description = jackal_hero.description | default: page.description %}
+    {% if jackal_hero_description %}
+      <p class="jackal-lede">{{ jackal_hero_description | escape }}</p>
+    {% endif %}
+    {% include jackal/actions.html actions=jackal_hero.actions %}
+  </div>
+  {% if jackal_hero.image.src %}
+    {% include jackal/media.html image=jackal_hero.image eager=true %}
+  {% endif %}
+</header>

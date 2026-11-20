@@ -1,0 +1,43 @@
+---
+theme: jekyll-theme-jackal
+title: Jackal Preview
+description: Preview the shared Jekyll theme for LizardByte sites.
+url: https://example.org
+permalink: /:year-:month-:day-:title/
+strict_front_matter: true
+liquid:
+  error_mode: strict
+
+jackal:
+  name: Jackal
+  umbrella:
+    name: LizardByte
+    url: https://app.lizardbyte.dev/
+    logo: https://sunshine.lizardbyte.dev/assets/lizardbyte.svg
+  nav:
+    - label: Home
+      url: /
+    - label: Projects
+      items:
+        - label: Sunshine
+          url: /sunshine/
+        - label: Themerr
+          url: /themerr/
+        - label: Koko
+          url: /koko/
+    - label: Catalog
+      url: /catalog/
+    - label: Blog
+      url: /blog/
+    - label: GitHub
+      url: https://github.com/LizardByte/jackal
+  footer:
+    - label: Explore projects
+      url: /
+      scope: umbrella
+    - label: Get support
+      url: /support/
+      scope: umbrella
+    - label: Website source
+      url: https://github.com/LizardByte/jackal
+  copyright: LizardByte

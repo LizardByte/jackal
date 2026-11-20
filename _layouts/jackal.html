@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}">
+  {% include jackal/head.html %}
+  <body>
+    <a class="jackal-skip" href="#main-content">Skip to content</a>
+    {% include jackal/header.html %}
+    <main id="main-content" class="jackal-main" tabindex="-1">
+      {{ content }}
+    </main>
+    {% include jackal/footer.html %}
+    {% for jackal_script in site.jackal.scripts %}
+      <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
+    {% endfor %}
+    {% for jackal_script in page.scripts %}
+      <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
+    {% endfor %}
+  </body>
+</html>

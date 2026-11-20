@@ -1,0 +1,44 @@
+---
+name: Theme CI
+permissions: {}
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build preview (Jekyll ${{ matrix.jekyll }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        include:
+          - ruby: '3.1'
+            jekyll: '~> 3.10.0'
+          - ruby: '3.4'
+            jekyll: '~> 4.4.0'
+    env:
+      JEKYLL_VERSION: ${{ matrix.jekyll }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@20eb24b0d509e2b9ed9b6d42ddfeb992915e0564  # v1.341.0
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Build and verify both URL layouts
+        run: |
+          bundle exec jekyll build --source example --destination _site/root --config example/_config.yml
+          ruby script/verify-preview.rb _site/root '' https://app.lizardbyte.dev/ https://example.org
+          bundle exec jekyll build --source example --destination _site/nested --config example/_config.yml,example/_preview.yml
+          ruby script/verify-preview.rb _site/nested /previews/42/ThemerrDB /previews/42 https://preview.example.org
+      - name: Build theme gem
+        run: gem build jekyll-theme-jackal.gemspec

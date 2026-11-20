@@ -1,0 +1,38 @@
+{% for jackal_section in include.sections %}
+  <section class="jackal-wrap jackal-section{% if jackal_section.type == 'callout' %} jackal-section--callout{% endif %}"
+           {% if jackal_section.id %}id="{{ jackal_section.id | escape }}"{% endif %}>
+    {% if jackal_section.title %}<h2>{{ jackal_section.title | escape }}</h2>{% endif %}
+    {% if jackal_section.description %}<p class="jackal-lede">{{ jackal_section.description | escape }}</p>{% endif %}
+    {% case jackal_section.type %}
+      {% when 'cards' %}
+        <div class="jackal-grid">
+          {% for jackal_card in jackal_section.items %}
+            <article class="jackal-card">
+              <h3>{{ jackal_card.title | escape }}</h3>
+              {% if jackal_card.description %}<div class="jackal-prose">{{ jackal_card.description | markdownify }}</div>{% endif %}
+              {% include jackal/actions.html actions=jackal_card.actions %}
+            </article>
+          {% endfor %}
+        </div>
+      {% when 'gallery' %}
+        <div class="jackal-grid">
+          {% for jackal_gallery_image in jackal_section.items %}
+            {% include jackal/media.html image=jackal_gallery_image %}
+          {% endfor %}
+        </div>
+      {% when 'faq' %}
+        <div class="jackal-faq">
+          {% for jackal_question in jackal_section.items %}
+            <details>
+              <summary>{{ jackal_question.question | escape }}</summary>
+              <div class="jackal-prose">{{ jackal_question.answer | markdownify }}</div>
+            </details>
+          {% endfor %}
+        </div>
+      {% when 'callout' %}
+        {% include jackal/actions.html actions=jackal_section.actions %}
+      {% when 'custom' %}
+        {% include {{ jackal_section.template }} section=jackal_section %}
+    {% endcase %}
+  </section>
+{% endfor %}

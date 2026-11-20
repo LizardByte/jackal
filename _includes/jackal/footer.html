@@ -1,0 +1,31 @@
+<footer class="jackal-footer">
+  <div class="jackal-wrap jackal-footer__inner">
+    {% assign jackal_parent = site.jackal.umbrella %}
+    {% if jackal_parent.name %}
+      <p class="jackal-affiliation">
+        <span>A</span>
+        <a href="{% include jackal/url.html url='/' scope='umbrella' %}">
+          {% if jackal_parent.logo %}
+            <img src="{% include jackal/url.html url=jackal_parent.logo scope=jackal_parent.logo_scope %}"
+                 alt="{{ jackal_parent.name | escape }}">
+          {% else %}
+            {{ jackal_parent.name | escape }}
+          {% endif %}
+        </a>
+        <span>project</span>
+      </p>
+    {% else %}
+      <p class="jackal-footer__name">{{ site.jackal.name | default: site.title | escape }}</p>
+    {% endif %}
+    {% if site.jackal.footer.size > 0 %}
+      <nav aria-label="Footer navigation">
+        {% for jackal_link in site.jackal.footer %}
+          {% include jackal/nav-link.html link=jackal_link %}
+        {% endfor %}
+      </nav>
+    {% endif %}
+    {% if site.jackal.copyright %}
+      <small>© {{ site.time | date: '%Y' }} {{ site.jackal.copyright | escape }}</small>
+    {% endif %}
+  </div>
+</footer>

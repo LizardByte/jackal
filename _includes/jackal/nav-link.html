@@ -1,0 +1,5 @@
+{%- capture jackal_nav_url -%}{% include jackal/url.html url=include.link.url scope=include.link.scope %}{%- endcapture -%}
+{%- assign jackal_nav_current = page.url | relative_url | escape -%}
+<a href="{{ jackal_nav_url }}"{% if jackal_nav_url == jackal_nav_current %} aria-current="page"{% endif %}>
+  {{- include.link.label | escape -}}
+</a>

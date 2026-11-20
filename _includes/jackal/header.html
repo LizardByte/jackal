@@ -1,0 +1,40 @@
+<header class="jackal-header">
+  <div class="jackal-wrap jackal-header__inner">
+    <a class="jackal-brand" href="{{ '/' | relative_url }}">
+      {% if site.jackal.logo %}
+        <img src="{% include jackal/url.html url=site.jackal.logo %}" width="36" height="36" alt="">
+      {% endif %}
+      <span>{{ site.jackal.name | default: site.title | escape }}</span>
+    </a>
+    {% if site.jackal.nav.size > 0 %}
+      <nav class="jackal-nav" aria-label="Main navigation">
+        <ul class="jackal-nav__list">
+          {% for jackal_link in site.jackal.nav %}
+            <li>
+              {% if jackal_link.items.size > 0 %}
+                <details class="jackal-nav__group">
+                  <summary>{{ jackal_link.label | escape }}</summary>
+                  <ul class="jackal-nav__dropdown">
+                    {% for jackal_sub_link in jackal_link.items %}
+                      <li>{% include jackal/nav-link.html link=jackal_sub_link %}</li>
+                    {% endfor %}
+                  </ul>
+                </details>
+              {% else %}
+                {% include jackal/nav-link.html link=jackal_link %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+    <label class="jackal-theme-control" hidden data-jackal-theme-control>
+      <span class="jackal-sr-only">Color theme</span>
+      <select data-jackal-theme>
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+  </div>
+</header>

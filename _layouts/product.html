@@ -1,0 +1,11 @@
+---
+layout: jackal
+---
+{% include jackal/hero.html hero=page.hero %}
+
+{% assign jackal_product_body = content | strip %}
+{% if jackal_product_body != empty %}
+  <div class="jackal-wrap jackal-section jackal-prose">{{ content }}</div>
+{% endif %}
+
+{% include jackal/sections.html sections=page.sections %}

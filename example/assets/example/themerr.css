@@ -1,0 +1,5 @@
+:root {
+  --jackal-accent: light-dark(#961c43, #ff9cb3);
+  --jackal-on-accent: light-dark(#fff8fa, #300713);
+  --jackal-accent-soft: light-dark(#f7e5eb, #3a2032);
+}

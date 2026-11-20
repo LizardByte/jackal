@@ -1,0 +1,8 @@
+---
+layout: jackal
+---
+<div class="jackal-wrap jackal-catalog">
+  {% include jackal/page-header.html %}
+  <div class="jackal-prose">{{ content }}</div>
+  {% include jackal/post-grid.html posts=site.posts %}
+</div>
