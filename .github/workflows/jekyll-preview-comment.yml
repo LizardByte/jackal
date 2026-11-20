@@ -1,0 +1,38 @@
+---
+name: Comment with the Jekyll preview
+permissions: {}
+
+on:
+  workflow_call:
+  workflow_run:
+    workflows: [Theme CI]
+    types: [completed]
+
+jobs:
+  comment:
+    if: >-
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.id == github.event.pull_request.base.repo.id) ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - name: Checkout the comment workflow tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          path: jackal-tools
+          persist-credentials: false
+
+      - name: Post or update the preview comment
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const { reportPreview } = require('./jackal-tools/script/preview.cjs')
+            await reportPreview({ github, context })
