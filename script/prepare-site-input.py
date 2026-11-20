@@ -44,7 +44,7 @@ def main():
             if Path(archive_name).name != archive_name:
                 raise SystemExit("extract_archive must be a filename")
             if not archive.is_file() or archive.is_symlink():
-                raise SystemExit("Archive not found at the root of site_artifact")
+                raise SystemExit("Archive not found at the artifact root")
             generated = temp / "jackal-extracted"
             if archive.suffix.lower() == ".zip":
                 shutil.unpack_archive(archive, generated, format="zip")
