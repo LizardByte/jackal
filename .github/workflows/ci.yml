@@ -53,7 +53,8 @@ jobs:
           container=$(docker run --rm -d -p 127.0.0.1:8080:80 \
             --mount "type=bind,source=$RUNNER_TEMP/preview,target=/usr/share/nginx/html,readonly" nginx:alpine)
           trap 'docker stop "$container" >/dev/null' EXIT
-          curl --retry 5 --retry-connrefused -fsS http://127.0.0.1:8080/ | grep 'url=/previews/42/ThemerrDB/'
+          curl --retry 5 --retry-all-errors -fsS http://127.0.0.1:8080/ -o "$RUNNER_TEMP/preview-index.html"
+          grep 'url=/previews/42/ThemerrDB/' "$RUNNER_TEMP/preview-index.html"
           curl -fsS http://127.0.0.1:8080/previews/42/ThemerrDB/catalog/index.json | grep 'SunshineStream'
 
   comment-preview:
