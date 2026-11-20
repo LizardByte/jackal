@@ -1,20 +1,21 @@
 <!doctype html>
 {% assign jackal_product = page.product | default: site.jackal.product %}
-{% assign jackal_presets = 'sunshine,themerr,koko' | split: ',' %}
-{% assign jackal_preset = jackal_product.palette %}
-{% unless jackal_presets contains jackal_preset %}
-  {% assign jackal_preset = 'koko' %}
-{% endunless %}
-<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}">
+{% assign jackal_menu = false %}
+{% if jackal_product.navigation == 'menu' %}{% assign jackal_menu = true %}{% endif %}
+<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}"
+      data-jackal-container="{{ jackal_product.container | default: 'standard' | escape }}"
+      data-jackal-density="{{ jackal_product.density | default: 'comfortable' | escape }}"
+      data-jackal-type="{{ jackal_product.typography | default: 'standard' | escape }}">
   {% include jackal/head.html landing=true %}
   <body>
-    <a class="{% if jackal_preset == 'sunshine' %}skip-link{% else %}skip{% endif %}" href="#main">Skip to content</a>
-    {% if jackal_preset == 'sunshine' or jackal_preset == 'koko' %}
-      {% assign jackal_icons = 'jackal/landing/' | append: jackal_preset | append: '-icons.html' %}
+    <a class="skip" href="#main">Skip to content</a>
+    {% unless jackal_product.icon_style == 'glyph' %}
+      {% assign jackal_icons = jackal_product.icons | default: 'jackal/landing/icons.html' %}
       {% include {{ jackal_icons }} %}
-    {% endif %}
+    {% endunless %}
     {% include jackal/landing/header.html %}
     <main id="main">
+      {% if page.hero %}{% include jackal/landing/hero.html hero=page.hero %}{% endif %}
       {{ content }}
     </main>
     {% include jackal/landing/footer.html %}

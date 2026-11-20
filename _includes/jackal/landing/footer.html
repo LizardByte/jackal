@@ -1,17 +1,14 @@
 {%- assign jackal_footer = jackal_product.footer -%}
 {%- assign jackal_footer_links = jackal_footer.links | default: site.jackal.footer -%}
 {%- assign jackal_parent = site.jackal.umbrella -%}
-{%- assign jackal_footer_brand_size = 38 -%}
-{%- if jackal_preset == 'koko' -%}
-  {%- assign jackal_footer_brand_size = 35 -%}
-{%- endif -%}
-<footer class="site-footer {% if jackal_preset == 'sunshine' %}wrap{% else %}shell{% endif %}">
+{%- assign jackal_footer_brand_size = jackal_footer.logo_size | default: 38 -%}
+<footer class="site-footer wrap{% if jackal_footer.style == 'inline' %} site-footer--inline{% endif %}">
   <div class="footer-top">
     {% include jackal/landing/brand.html size=jackal_footer_brand_size %}
     {% if jackal_footer.tagline %}<p>{{ jackal_footer.tagline | escape }}</p>{% endif %}
     {% if jackal_footer.action %}
       {% assign jackal_link = jackal_footer.action %}
-      <a{% unless jackal_preset == 'sunshine' %} class="text-link"{% endunless %}
+      <a{% unless jackal_footer.style == 'inline' %} class="text-link"{% endunless %}
         href="{% include jackal/url.html url=jackal_link.url scope=jackal_link.scope %}"
         {% if jackal_link.repository_path %}data-repo-path="{{ jackal_link.repository_path | escape }}"{% endif %}>
         {{- jackal_link.label | escape -}}

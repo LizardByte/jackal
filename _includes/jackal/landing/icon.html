@@ -1,6 +1,6 @@
 {%- if include.name -%}
-  {%- if jackal_preset == 'themerr' -%}
-    <span aria-hidden="true">↗</span>
+  {%- if jackal_product.icon_style == 'glyph' -%}
+    <span aria-hidden="true">{% if include.name == 'arrow' %}→{% else %}↗{% endif %}</span>
   {%- else -%}
     <svg aria-hidden="true" class="icon{% if include.small %} small{% endif %}"><use href="#{{ include.name | escape }}"/></svg>
   {%- endif -%}

@@ -3,9 +3,12 @@
 {%- assign jackal_brand_logo = jackal_product.logo | default: site.jackal.logo -%}
 <a class="brand" href="{% include jackal/url.html url=jackal_brand_url %}" aria-label="{{ jackal_brand_name | escape }} home">
   {% if jackal_brand_logo %}
-    <img src="{% include jackal/url.html url=jackal_brand_logo %}" width="{{ include.size }}" height="{{ include.size }}" alt="">
+    <img src="{% include jackal/url.html url=jackal_brand_logo %}" width="{{ include.size | escape }}"
+         height="{{ include.size | escape }}" alt="">
   {% endif %}
   <span>{{ jackal_product.wordmark | default: jackal_brand_name | escape -}}
-    {%- if jackal_preset == 'sunshine' -%}<span class="brand-period">.</span>{%- endif -%}
+    {%- if jackal_product.wordmark_suffix -%}
+      <span class="brand-period">{{ jackal_product.wordmark_suffix | escape }}</span>
+    {%- endif -%}
   </span>
 </a>

@@ -1,0 +1,34 @@
+{%- assign jackal_scene = include.scene -%}
+{%- capture jackal_scene_image -%}{% include jackal/url.html url=jackal_scene.src %}{%- endcapture -%}
+<div class="stream-scene" role="img" aria-label="{{ jackal_scene.alt | escape }}">
+  <div class="scene-orbit orbit-one"></div><div class="scene-orbit orbit-two"></div>
+  {% if jackal_scene.top_caption %}<span class="scene-coordinate coordinate-top">{{ jackal_scene.top_caption | escape }}</span>{% endif %}
+  <div class="monitor">
+    <div class="monitor-screen">
+      <img src="{{ jackal_scene_image }}" {% if jackal_scene.width and jackal_scene.height %}width="{{ jackal_scene.width | escape }}"
+           height="{{ jackal_scene.height | escape }}" {% endif %}alt="">
+      {% if jackal_scene.label %}
+        <span class="screen-mark">
+          {% if jackal_scene.label_icon %}
+            <img src="{% include jackal/url.html url=jackal_scene.label_icon %}" width="18" height="18" alt="">
+          {% endif %}
+          {{ jackal_scene.label | escape }}
+        </span>
+      {% endif %}
+    </div>
+    <div class="monitor-neck"></div><div class="monitor-foot"></div>
+  </div>
+  {% if jackal_scene.connection %}
+    <div class="connection-tag"><span class="connection-dot"></span> {{ jackal_scene.connection | escape }}</div>
+  {% endif %}
+  <div class="handheld">
+    <div class="handheld-left"><span class="joystick"></span><span class="dpad"></span></div>
+    <img class="handheld-screen" src="{{ jackal_scene_image }}" {% if jackal_scene.width and jackal_scene.height %}
+         width="{{ jackal_scene.width | escape }}" height="{{ jackal_scene.height | escape }}" {% endif %}alt="">
+    <div class="handheld-right"><span class="device-buttons">●<br>● ●<br>●</span><span class="joystick"></span></div>
+  </div>
+  {% if jackal_scene.bottom_caption %}
+    <span class="scene-coordinate coordinate-bottom">{{ jackal_scene.bottom_caption | escape }}
+      {% include jackal/landing/icon.html name='arrow' small=true %}</span>
+  {% endif %}
+</div>

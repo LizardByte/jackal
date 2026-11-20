@@ -1,0 +1,37 @@
+{%- assign jackal_hero = include.hero -%}
+{%- assign jackal_composition = jackal_hero.layout | default: 'illustrated' -%}
+{%- case jackal_composition -%}
+  {%- when 'centered' -%}
+    <div class="hero hero--centered">
+      <div class="wrap hero-content">
+        <section class="intro" aria-labelledby="hero-title">
+          {% include jackal/landing/hero-copy.html hero=jackal_hero composition=jackal_composition %}
+        </section>
+      </div>
+    </div>
+  {%- when 'devices' -%}
+    <section class="hero hero--devices wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        {% include jackal/landing/hero-copy.html hero=jackal_hero composition=jackal_composition %}
+      </div>
+      {% if jackal_hero.devices.src %}
+        {% include jackal/landing/device-scene.html scene=jackal_hero.devices %}
+      {% endif %}
+    </section>
+  {%- else -%}
+    <section class="wrap hero hero--illustrated" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        {% include jackal/landing/hero-copy.html hero=jackal_hero composition='illustrated' %}
+      </div>
+      {% if jackal_hero.image.src %}
+        {% assign jackal_image = jackal_hero.image %}
+        <figure class="hero-art">
+          <img src="{% include jackal/url.html url=jackal_image.src %}" alt="{{ jackal_image.alt | escape }}"
+               {% if jackal_image.width and jackal_image.height %}
+                 width="{{ jackal_image.width | escape }}" height="{{ jackal_image.height | escape }}"
+               {% endif %}fetchpriority="high">
+          {% if jackal_image.caption %}<figcaption>{{ jackal_image.caption | escape }}</figcaption>{% endif %}
+        </figure>
+      {% endif %}
+    </section>
+{%- endcase -%}

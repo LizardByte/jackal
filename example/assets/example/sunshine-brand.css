@@ -1,0 +1,19 @@
+:root {
+  --jackal-paper: light-dark(#f7f6f0, #181817);
+  --jackal-ink: light-dark(#292925, #efede5);
+  --jackal-muted: light-dark(#68685f, #b9b7ad);
+  --jackal-accent: light-dark(#c7591f, #ffb875);
+  --jackal-border: light-dark(#dcdad1, #41413b);
+  --jackal-muted-surface: light-dark(#eeeade, #222220);
+  --jackal-surface: light-dark(#f8f7f1, #292927);
+  --jackal-device-surface: light-dark(#eeece4, #262624);
+  --jackal-device-border: light-dark(#d9d6ca, #45453f);
+  --jackal-device-text: light-dark(#68685f, #bfbcb0);
+  --jackal-feature-accent: light-dark(#a34c1d, #ffb875);
+  --jackal-button-hover: light-dark(#4c4b43, #ded9ca);
+  --jackal-device-label: light-dark(#fbfaf5, #30302d);
+  --jackal-device-label-border: light-dark(#dcd8cd, #56564d);
+  --jackal-support-surface: light-dark(#f0e6d5, #29251f);
+  --jackal-dot: #ed9b27;
+  --jackal-dot-ring: #f8ead3;
+}

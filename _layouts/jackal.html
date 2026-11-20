@@ -2,8 +2,7 @@
 {% assign jackal_product = page.product | default: site.jackal.product %}
 <html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}">
   {% include jackal/head.html %}
-  <body{% if page.layout == 'product' or jackal_product %} class="jackal-product"
-    {% if jackal_product.palette %}data-jackal-palette="{{ jackal_product.palette | escape }}"{% endif %}{% endif %}>
+  <body{% if page.layout == 'product' or jackal_product %} class="jackal-product"{% endif %}>
     <a class="jackal-skip" href="#main-content">Skip to content</a>
     {% include jackal/header.html %}
     <main id="main-content" class="jackal-main" tabindex="-1">

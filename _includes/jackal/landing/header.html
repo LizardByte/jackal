@@ -1,18 +1,16 @@
-{%- assign jackal_brand_size = 40 -%}
-{%- assign jackal_action_class = 'button button-outline header-github' -%}
-{%- if jackal_preset == 'sunshine' -%}
-  {%- assign jackal_brand_size = 42 -%}
-  {%- assign jackal_action_class = 'header-download' -%}
-{%- elsif jackal_preset == 'themerr' -%}
-  {%- assign jackal_brand_size = 37 -%}
-  {%- assign jackal_action_class = 'button button-outline header-download' -%}
+{%- assign jackal_brand_size = jackal_product.logo_size | default: 40 -%}
+{%- assign jackal_action = jackal_product.action -%}
+{%- assign jackal_action_class = 'button button-outline header-action' -%}
+{%- if jackal_menu -%}
+  {%- assign jackal_action_class = 'header-action' -%}
+{%- elsif jackal_action.emphasis -%}
+  {%- assign jackal_action_class = 'button button-outline header-action header-action--emphasized' -%}
 {%- endif -%}
 {%- assign jackal_navigation = jackal_product.nav | default: site.jackal.nav -%}
-{%- assign jackal_action = jackal_product.action -%}
-<header class="site-header{% if jackal_preset == 'sunshine' %} wrap{% endif %}">
-  {% unless jackal_preset == 'sunshine' %}<div class="shell header-inner">{% endunless %}
+<header class="site-header{% if jackal_menu %} site-header--menu wrap{% endif %}">
+  {% unless jackal_menu %}<div class="wrap header-inner">{% endunless %}
     {% include jackal/landing/brand.html size=jackal_brand_size %}
-    {% if jackal_preset == 'sunshine' and jackal_navigation.size > 0 %}
+    {% if jackal_menu and jackal_navigation.size > 0 %}
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">☰</span></button>
     {% endif %}
     {% if jackal_navigation.size > 0 %}
@@ -26,9 +24,9 @@
         {% endfor %}
       </nav>
     {% endif %}
-    {% unless jackal_preset == 'sunshine' %}<div class="header-actions">{% endunless %}
+    {% unless jackal_menu %}<div class="header-actions">{% endunless %}
       <button class="theme-toggle" type="button" aria-label="Switch color theme" hidden>
-        {% if jackal_preset == 'themerr' %}
+        {% if jackal_product.icon_style == 'glyph' %}
           <span class="sun-icon" aria-hidden="true">☀</span><span class="moon-icon" aria-hidden="true">☾</span>
         {% else %}
           <svg aria-hidden="true" class="icon"><use data-jackal-theme-icon href="#moon"/></svg>
@@ -37,15 +35,15 @@
       {% if jackal_action %}
         <a class="{{ jackal_action_class }}"
            href="{% include jackal/url.html url=jackal_action.url scope=jackal_action.scope %}">
-          {%- if jackal_preset == 'koko' and jackal_action.icon -%}
+          {%- if jackal_action.icon_position == 'start' -%}
             {% include jackal/landing/icon.html name=jackal_action.icon %}
           {%- endif -%}
           {{- jackal_action.label | escape -}}
-          {%- unless jackal_preset == 'koko' -%}
+          {%- unless jackal_action.icon_position == 'start' -%}
             {%- if jackal_action.icon %} {% include jackal/landing/icon.html name=jackal_action.icon small=true %}{% endif -%}
           {%- endunless -%}
         </a>
       {% endif %}
-    {% unless jackal_preset == 'sunshine' %}</div>{% endunless %}
-  {% unless jackal_preset == 'sunshine' %}</div>{% endunless %}
+    {% unless jackal_menu %}</div>{% endunless %}
+  {% unless jackal_menu %}</div>{% endunless %}
 </header>

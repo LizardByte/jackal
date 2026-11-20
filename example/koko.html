@@ -4,8 +4,9 @@ title: "Koko — Your media. At home."
 description: "Koko is a self-hosted media server in development, bringing movies, shows, music, books, and podcasts into one browser experience. A LizardByte project."
 permalink: /koko/
 product:
-  palette: koko
   name: Koko
+  brand_styles: /assets/example/koko-brand.css
+  icons: product/koko-icons.html
   url: /koko/
   logo: https://koko.lizardbyte.dev/assets/koko.svg
   icon: https://koko.lizardbyte.dev/assets/koko.svg
@@ -20,7 +21,9 @@ product:
     label: "GitHub"
     url: "https://github.com/KokoStreamTV/Koko"
     icon: github
+    icon_position: start
   footer:
+    logo_size: 35
     tagline: Your media. At home.
     action:
       label: "Website source"
@@ -39,25 +42,30 @@ product:
       - label: "Terms"
         url: "/terms/"
         scope: umbrella
+hero:
+  layout: illustrated
+  eyebrow: A LizardByte project · In development
+  marker: status
+  title: Your media.
+  accent: At home.
+  description: A self-hosted media server for watching, listening, and reading. Built in Rust, and still taking shape.
+  actions:
+    - label: Follow development
+      url: https://github.com/KokoStreamTV/Koko
+      icon: arrow
+      primary: true
+    - label: Read the docs
+      url: https://docs.lizardbyte.dev/projects/koko/latest/
+      icon: external
+  note: Koko is in early development. Features and interfaces are evolving.
+  image:
+    src: https://koko.lizardbyte.dev/assets/collection.svg
+    width: 680
+    height: 580
+    alt: An original illustration of a movie cover, vinyl record, and book.
+    caption: For the things you love to keep.
 ---
 <!-- Adapted from https://github.com/KokoStreamTV/KokoStreamTV.github.io. SPDX-License-Identifier: AGPL-3.0-only -->
-<section class="shell hero" aria-labelledby="hero-title">
-  <div class="hero-copy">
-    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> A LizardByte project · In development</p>
-    <h1 id="hero-title">Your media.<br><span>At home.</span></h1>
-    <p class="lead">A self-hosted media server for watching, listening, and reading. Built in Rust, and still taking shape.</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="https://github.com/KokoStreamTV/Koko">Follow development <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
-      <a class="text-link" href="https://docs.lizardbyte.dev/projects/koko/latest/">Read the docs <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
-    </div>
-    <p class="development-note">Koko is in early development. Features and interfaces are evolving.</p>
-  </div>
-  <figure class="hero-art">
-    <img src="https://koko.lizardbyte.dev/assets/collection.svg" width="680" height="580" alt="An original illustration of a movie cover, vinyl record, and book." fetchpriority="high">
-    <figcaption>For the things you love to keep.</figcaption>
-  </figure>
-</section>
-
 <div class="shell project-strip" aria-label="Project details">
   <span><span class="tiny-dot" aria-hidden="true"></span> Self-hosted</span>
   <span>Built in Rust</span>
@@ -66,7 +74,7 @@ product:
 </div>
 
 <section class="shell collection section" id="collection" aria-labelledby="collection-title">
-  <div class="section-heading">
+  <div class="section-heading section-heading--split">
     <div><p class="eyebrow">A collection of your own</p><h2 id="collection-title">Watch. Listen. Read.</h2></div>
     <p>Koko is taking shape around your library, from the movies you return to to the books you have yet to open.</p>
   </div>

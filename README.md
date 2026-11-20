@@ -98,8 +98,7 @@ jackal:
   `styles` and `scripts` lists in front matter.
 - Adjust the theme tokens in your stylesheet. Set `--jackal-accent`,
   `--jackal-on-accent`, and `--jackal-accent-soft` together so buttons and links
-  remain readable in both modes. The built-in product palettes use the same tokens and can be
-  overridden by a site's own stylesheet.
+  remain readable in both modes.
 
 ## Layouts
 
@@ -108,8 +107,8 @@ jackal:
   `posts_limit` to customize it.
 - `product` displays a branded hero, page content, and reusable sections. It uses
   [Manrope](assets/jackal/fonts/OFL-Manrope.txt) for product pages.
-- `landing` applies a complete landing-page preset, with the product sites' original
-  section styles and a shared header, footer, and theme switcher.
+- `landing` provides a shared header, footer, theme switcher, and reusable styles
+  for product landing pages.
 - `page` and `post` provide a reading layout. Use `blog` for a post index.
 - `catalog` provides a full-width layout for a data browser. Catalogs can use the
   theme's grid, table, and toolbar styles with their own data and JavaScript.
@@ -130,11 +129,11 @@ project with its own generated data.
 ### Product pages
 
 Set `product` in a page's front matter, or `jackal.product` in `_config.yml`
-to configure the site's product branding. Choose `palette: sunshine` for warm
-neutrals and orange, `themerr` for plum and coral, or `koko` for greens.
-Set `name`, `logo`, `url`, `nav`, and an optional `action` with `label` and
-`url` to customize the header. `default_theme` accepts `system`, `light`, or
-`dark`. A visitor's saved choice takes precedence.
+to configure the site's product branding. `name`, `logo`, `icon`, `url`, and
+`nav` control the header. Set `action` with a `label` and `url` to add a call to
+action. `default_theme` accepts `system`, `light`, or `dark`. A visitor's saved
+choice takes precedence. Set `brand_styles` to the path of a site-owned stylesheet
+that overrides the theme's color tokens in light and dark mode.
 
 The hero accepts an `eyebrow`, an accent-colored ending in `accent`, a
 `note`, and a list of `highlights`. Use `alignment: center` for a
@@ -145,13 +144,25 @@ an optional `label` to show one image on a monitor and handheld.
 
 ### Landing pages
 
-Use `layout: landing` for a site adopting one of the existing product designs. Set
-`product.palette` to `sunshine`, `themerr`, or `koko`. The preset styles the
-header, footer, and main content. Supply the page body using the same HTML section
-classes as its example. Header navigation and actions use the `product` settings
-above. Set `product.footer.tagline`, `product.footer.action`, and
-`product.footer.links` for the footer. A link with `scope: umbrella` resolves
-against the umbrella site, including under a nested preview URL.
+Use `layout: landing` for a product homepage. Set `hero.layout` to `devices`,
+`centered`, or `illustrated` in the page's front matter. Each hero works with
+any site's colors, navigation, and footer. Supply `title`, `accent`,
+`description`, `eyebrow`, and `actions` as needed. The illustrated hero uses
+`hero.image`, the device scene uses `hero.devices`, and the centered hero
+can show a list of `highlights`. Build the rest of the page with the shared
+section styles shown in the examples below.
+
+- `product.container` selects `narrow`, `standard`, or `wide` page gutters.
+- `product.density: compact` uses tighter body and navigation styles.
+- `product.typography: editorial` uses editorial headings and button styling.
+- `product.navigation: menu` collapses the navigation behind a menu button on mobile.
+- `product.wordmark`, `wordmark_suffix`, and `logo_size` customize the brand lockup.
+  Set `product.icons` to a site-owned SVG sprite include or `icon_style: glyph` for text icons.
+- `product.footer` supplies `tagline`, `action`, and `links`. It accepts
+  `style: inline` and an optional `logo_size`.
+
+Links with `scope: umbrella` resolve against the umbrella site, including under
+a nested preview URL.
 
 To switch a `picture` source with the selected theme, add `data-jackal-dark-image`
 to its dark-mode `source` and supply the default image in the `img` element.
@@ -160,8 +171,9 @@ to its dark-mode `source` and supply the default image in the `img` element.
 - [Themerr](example/themerr.html) includes the centered coral hero, server features, and setup panels.
 - [Koko](example/koko.html) includes the collection artwork, media categories, and development panel.
 
-The landing presets adapt styles from the three product-site repositories. Files
-adapted from Sunshine and Koko carry their [AGPL-3.0 license](assets/jackal/landing/AGPL-3.0.txt).
+The examples supply their own logos, icons, colors, and content. The landing CSS
+and layout ship in the theme package. Shared styles and example files adapted
+from the original sites retain their source attribution in [the landing notices](docs/landing-notices.md).
 
 When migrating a site, keep its existing `url`, `baseurl`, permalinks, feeds, and redirects.
 Keep generated data, release assets, and downloads at their existing public paths.

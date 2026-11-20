@@ -10,49 +10,9 @@
   --jackal-font: Manrope, system-ui, sans-serif;
   --jackal-max-width: 80rem;
   --jackal-radius: 1.25rem;
-  --jackal-product-button: var(--jackal-ink);
-  --jackal-product-button-ink: var(--jackal-paper);
+  --jackal-product-button: var(--jackal-button, var(--jackal-ink));
+  --jackal-product-button-ink: var(--jackal-on-button, var(--jackal-paper));
   --jackal-product-glow: transparent;
-}
-
-.jackal-product[data-jackal-palette="sunshine"] {
-  --jackal-paper: light-dark(#f7f6f0, #181817);
-  --jackal-surface: light-dark(#fdfbf6, #292927);
-  --jackal-muted-surface: light-dark(#eeeade, #222220);
-  --jackal-ink: light-dark(#292925, #efede5);
-  --jackal-muted: light-dark(#636359, #b9b7ad);
-  --jackal-border: light-dark(#dcdad1, #41413b);
-  --jackal-accent: light-dark(#a34c1d, #ffb875);
-  --jackal-on-accent: light-dark(#fffdf7, #261106);
-  --jackal-accent-soft: light-dark(#f0e6d5, #29251f);
-}
-
-.jackal-product[data-jackal-palette="themerr"] {
-  --jackal-paper: light-dark(#fff8f5, #100d13);
-  --jackal-surface: light-dark(#fffdfb, #19141e);
-  --jackal-muted-surface: light-dark(#f8eeed, #211b28);
-  --jackal-ink: light-dark(#281b2a, #fff7f3);
-  --jackal-muted: light-dark(#564650, #c4b8c6);
-  --jackal-border: light-dark(#dfcbd4, #3b303f);
-  --jackal-accent: light-dark(#a92742, #ff8879);
-  --jackal-on-accent: light-dark(#fff8f5, #28121a);
-  --jackal-accent-soft: light-dark(#fae0e2, #3b202c);
-  --jackal-product-glow: light-dark(#f4bacd60, #6025375c);
-}
-
-.jackal-product[data-jackal-palette="koko"] {
-  --jackal-paper: light-dark(#f6f7f2, #141812);
-  --jackal-surface: light-dark(#fdfef9, #20271c);
-  --jackal-muted-surface: light-dark(#edf0e7, #1e251a);
-  --jackal-ink: light-dark(#20271f, #f0f2e9);
-  --jackal-muted: light-dark(#566153, #a6afa0);
-  --jackal-border: light-dark(#d8dfd1, #343f2d);
-  --jackal-accent: light-dark(#426b2a, #a9dd7a);
-  --jackal-on-accent: light-dark(#f6f7f2, #18210f);
-  --jackal-accent-soft: light-dark(#e7efdb, #26361c);
-  --jackal-product-button: light-dark(#22301d, #b4e287);
-  --jackal-product-button-ink: var(--jackal-on-accent);
-  --jackal-product-glow: light-dark(#9bcc6426, #9bcc6411);
 }
 
 .jackal-product .jackal-brand { font-size: clamp(1.4rem, 3vw, 1.8rem); }
@@ -107,14 +67,6 @@
   border-radius: 50%;
   background: currentColor;
   content: "";
-}
-
-[data-jackal-palette="themerr"] .jackal-eyebrow::before {
-  flex-basis: 1.15rem;
-  height: 0.9rem;
-  border-radius: 0;
-  clip-path: polygon(0 42%, 16% 42%, 16% 100%, 28% 100%, 28% 12%, 44% 12%,
-    44% 100%, 56% 100%, 56% 0, 72% 0, 72% 100%, 84% 100%, 84% 30%, 100% 30%, 100% 100%, 0 100%);
 }
 
 .jackal-hero__highlights {
