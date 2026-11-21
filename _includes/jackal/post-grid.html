@@ -1,0 +1,12 @@
+<div class="media-grid">
+  {% assign jackal_post_limit = include.limit | default: include.posts.size %}
+  {% for jackal_post in include.posts limit: jackal_post_limit %}
+    <article class="media-category jackal-post-card">
+      <time class="jackal-meta" datetime="{{ jackal_post.date | date_to_xmlschema }}">
+        {{ jackal_post.date | date_to_string }}
+      </time>
+      <h3><a href="{{ jackal_post.url | relative_url | escape }}">{{ jackal_post.title | escape }}</a></h3>
+      <p>{{ jackal_post.description | default: jackal_post.excerpt | strip_html | strip_newlines | escape }}</p>
+    </article>
+  {% endfor %}
+</div>

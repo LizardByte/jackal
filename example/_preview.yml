@@ -1,0 +1,7 @@
+---
+url: https://preview.example.org
+baseurl: /previews/42/ThemerrDB
+
+jackal:
+  umbrella:
+    url: /previews/42

@@ -1,0 +1,10 @@
+---
+- name: Sunshine
+  organization: SunshineStream
+  url: https://github.com/SunshineStream/Sunshine/releases
+- name: Themerr
+  organization: Themerr
+  url: https://github.com/Themerr/Themerr/releases
+- name: Koko
+  organization: KokoStreamTV
+  url: https://github.com/KokoStreamTV/Koko/releases

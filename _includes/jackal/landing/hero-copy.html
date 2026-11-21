@@ -1,0 +1,64 @@
+{%- assign jackal_hero = include.hero -%}
+{%- assign jackal_composition = include.composition -%}
+{%- assign jackal_description_class = 'lead' -%}
+{%- assign jackal_actions_class = 'hero-actions' -%}
+{%- assign jackal_primary_class = 'button button-primary' -%}
+{%- if jackal_composition == 'devices' -%}
+  {%- assign jackal_description_class = 'hero-description' -%}
+  {%- assign jackal_primary_class = 'button primary' -%}
+{%- elsif jackal_composition == 'centered' -%}
+  {%- assign jackal_actions_class = 'intro-actions' -%}
+{%- endif -%}
+{% if jackal_hero.eyebrow %}
+  <p class="eyebrow">
+    {% case jackal_hero.marker %}
+      {% when 'dot' %}<span class="accent-dot" aria-hidden="true"></span>
+      {% when 'status' %}<span class="status-dot" aria-hidden="true"></span>
+      {% when 'bars' %}<span class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    {% endcase %}
+    {{- jackal_hero.eyebrow | escape -}}
+  </p>
+{% endif %}
+<h1 id="hero-title">
+  {{- jackal_hero.title | default: page.title | default: site.title | escape | newline_to_br -}}
+  {%- if jackal_hero.accent -%}
+    {%- if jackal_composition == 'centered' -%}
+      {{ ' ' }}<em>{{ jackal_hero.accent | escape }}</em>
+    {%- else -%}
+      <br><span>{{ jackal_hero.accent | escape }}</span>
+    {%- endif -%}
+  {%- endif -%}
+</h1>
+{% if jackal_hero.description %}<p class="{{ jackal_description_class }}">{{ jackal_hero.description | escape }}</p>{% endif %}
+{% if jackal_hero.actions.size > 0 %}
+  <div class="{{ jackal_actions_class }}">
+    {% for jackal_link in jackal_hero.actions %}
+      <a class="{% if jackal_link.primary %}{{ jackal_primary_class }}{% else %}text-link{% endif %}"
+         href="{% include jackal/url.html url=jackal_link.url scope=jackal_link.scope %}">
+        {{- jackal_link.label | escape -}}
+        {%- if jackal_link.icon -%}
+          {% if jackal_composition == 'devices' and jackal_link.primary != true %}
+            {% include jackal/landing/icon.html name=jackal_link.icon small=true %}
+          {% else %}
+            {% include jackal/landing/icon.html name=jackal_link.icon %}
+          {% endif %}
+        {%- endif -%}
+      </a>
+    {% endfor %}
+  </div>
+{% endif %}
+{% if jackal_hero.note %}
+  <p class="{% if jackal_composition == 'devices' %}hero-footnote{% else %}development-note{% endif %}">
+    {% if jackal_hero.note_check %}<span class="checkmark" aria-hidden="true">✓</span>{% endif %}
+    {{ jackal_hero.note | escape }}
+    {% if jackal_hero.note_detail %}<span aria-hidden="true">·</span> {{ jackal_hero.note_detail | escape }}{% endif %}
+  </p>
+{% endif %}
+{% if jackal_hero.highlights.size > 0 %}
+  <ul class="platforms"{% if jackal_hero.highlights_label %} aria-label="{{ jackal_hero.highlights_label | escape }}"{% endif %}>
+    {% for jackal_item in jackal_hero.highlights %}
+      <li>{% if jackal_item.mark %}<span class="{{ jackal_item.mark | escape }}" aria-hidden="true"></span>{% endif %}
+        {{ jackal_item.label | escape }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

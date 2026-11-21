@@ -1,0 +1,13 @@
+{% assign jackal_image = include.image %}
+<figure class="jackal-media{% if jackal_image.presentation == 'bare' %} jackal-media--bare{% endif %}">
+  <img{% if jackal_image.dark_src %} class="jackal-media__light"{% endif %}
+       src="{% include jackal/url.html url=jackal_image.src %}" alt="{{ jackal_image.alt | escape }}"
+       {% unless include.eager %}loading="lazy"{% endunless %} decoding="async"
+       {% if jackal_image.width and jackal_image.height %}width="{{ jackal_image.width | escape }}" height="{{ jackal_image.height | escape }}"{% endif %}>
+  {% if jackal_image.dark_src %}
+    <img class="jackal-media__dark" src="{% include jackal/url.html url=jackal_image.dark_src %}"
+         alt="{{ jackal_image.alt | escape }}" loading="lazy" decoding="async"
+         {% if jackal_image.width and jackal_image.height %}width="{{ jackal_image.width | escape }}" height="{{ jackal_image.height | escape }}"{% endif %}>
+  {% endif %}
+  {% if jackal_image.caption %}<figcaption>{{ jackal_image.caption | escape }}</figcaption>{% endif %}
+</figure>

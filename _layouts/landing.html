@@ -1,0 +1,6 @@
+---
+layout: jackal
+---
+{% assign jackal_product = page.product | default: site.jackal.product %}
+{% if page.hero %}{% include jackal/landing/hero.html hero=page.hero %}{% endif %}
+{{ content }}

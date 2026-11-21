@@ -1,0 +1,19 @@
+:root {
+  --jackal-paper: light-dark(#fff8f5, #100d13);
+  --jackal-surface: light-dark(#fffdfb, #19141e);
+  --jackal-muted-surface: light-dark(#f8eeed, #211b28);
+  --jackal-raised-surface: light-dark(#f1e1e4, #2c2231);
+  --jackal-ink: light-dark(#281b2a, #fff7f3);
+  --jackal-muted: light-dark(#564650, #c4b8c6);
+  --jackal-accent: light-dark(#a92742, #ff8879);
+  --jackal-accent-soft: light-dark(#fae0e2, #3b202c);
+  --jackal-border: light-dark(#dfcbd4, #3b303f);
+  --jackal-button-hover: light-dark(#4b3b48, #e2d8dd);
+  --jackal-hero-glow: light-dark(#f4bacd60, #6025375c);
+}
+
+.platforms .plex-mark { width: .65rem; height: .82rem; }
+.plex-mark { background: #e7a23b; clip-path: polygon(0 0, 48% 0, 100% 50%, 48% 100%, 0 100%, 53% 50%); }
+
+.platforms .jellyfin-mark { width: .85rem; height: .78rem; }
+.jellyfin-mark { background: linear-gradient(145deg, #b76eef, #33c7dd); clip-path: polygon(50% 0, 100% 100%, 0 100%, 50% 0, 50% 27%, 19% 86%, 81% 86%, 50% 27%); }

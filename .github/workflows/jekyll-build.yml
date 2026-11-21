@@ -1,0 +1,140 @@
+---
+name: Build Jekyll site
+permissions: {}
+
+on:
+  workflow_call:
+    inputs:
+      ruby_version:
+        description: Ruby version for the site build
+        type: string
+        default: '4.0'
+      source_dir:
+        description: Jekyll source directory, relative to the caller's checkout
+        type: string
+        default: '.'
+      bundle_dir:
+        description: Directory containing the site's Gemfile, relative to the caller's checkout
+        type: string
+        default: '.'
+      config_files:
+        description: Optional comma-separated Jekyll config files, relative to bundle_dir
+        type: string
+        default: ''
+      site_artifact:
+        description: Optional input artifact from an earlier job in this run, overlaid on source_dir
+        type: string
+        default: ''
+      extract_archive:
+        description: Optional ZIP, TAR, or TAR.GZ filename inside site_artifact
+        type: string
+        default: ''
+      upload_pages:
+        description: Package the rendered site for GitHub Pages on non-PR runs
+        type: boolean
+        default: false
+    outputs:
+      preview_artifact:
+        description: Name of the PR preview artifact
+        value: ${{ jobs.build.outputs.preview_artifact }}
+      pages_artifact:
+        description: Name of the GitHub Pages artifact
+        value: ${{ jobs.build.outputs.pages_artifact }}
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      preview_artifact: ${{ steps.names.outputs.preview }}
+      pages_artifact: ${{ steps.names.outputs.pages }}
+    env:
+      SITE_SOURCE: ${{ inputs.source_dir }}
+      BUNDLE_DIR: ${{ inputs.bundle_dir }}
+      CONFIG_FILES: ${{ inputs.config_files }}
+      SITE_ARTIFACT: ${{ inputs.site_artifact }}
+      EXTRACT_ARCHIVE: ${{ inputs.extract_archive }}
+      BUILD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      PREVIEW: ${{ github.event_name == 'pull_request' }}
+      UPLOAD_PAGES: >-
+        ${{ inputs.upload_pages && github.ref_name == github.event.repository.default_branch &&
+            contains(fromJSON('["push","schedule","workflow_dispatch"]'), github.event_name) }}
+    steps:
+      - name: Checkout site at the build commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ env.BUILD_SHA }}
+          path: project
+          persist-credentials: false
+
+      - name: Checkout the reusable workflow tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          path: jackal-tools
+          persist-credentials: false
+
+      - name: Download generated site input
+        if: inputs.site_artifact != ''
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          name: ${{ inputs.site_artifact }}
+          path: ${{ runner.temp }}/jackal-generated
+
+      - name: Prepare Jekyll input
+        id: prepare
+        run: python3 jackal-tools/script/prepare-site-input.py
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0  # v1.342.0
+        with:
+          ruby-version: ${{ inputs.ruby_version }}
+          working-directory: ${{ steps.prepare.outputs.bundle_dir }}
+          bundler-cache: true
+
+      - name: Build with the site's bundle
+        working-directory: ${{ steps.prepare.outputs.bundle_dir }}
+        env:
+          JEKYLL_ENV: production
+          JEKYLL_SOURCE: ${{ steps.prepare.outputs.source_dir }}
+        run: bundle exec ruby "$GITHUB_WORKSPACE/jackal-tools/script/build-site.rb"
+
+      - name: Name the build artifacts
+        id: names
+        run: |
+          if [[ "$PREVIEW" == 'true' ]]; then
+            echo "preview=jackal-preview-${BUILD_SHA}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+          fi
+          if [[ "$UPLOAD_PAGES" == 'true' ]]; then
+            echo "pages=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload the rendered preview
+        if: steps.names.outputs.preview != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: ${{ steps.names.outputs.preview }}
+          path: ${{ runner.temp }}/jackal-preview/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Write the preview command to the run summary
+        if: steps.names.outputs.preview != ''
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const { formatPreview } = require('./jackal-tools/script/preview.cjs')
+            await core.summary.addRaw(formatPreview(context.repo, context.runId,
+              process.env.BUILD_SHA, process.env.GITHUB_RUN_ATTEMPT)).write()
+
+      - name: Package the site for GitHub Pages
+        if: steps.names.outputs.pages != ''
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+        with:
+          name: ${{ steps.names.outputs.pages }}
+          path: ${{ runner.temp }}/jackal-site
+          include-hidden-files: true

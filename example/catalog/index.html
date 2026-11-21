@@ -1,0 +1,31 @@
+---
+layout: catalog
+title: Release catalog
+description: Browse releases across the LizardByte project organizations.
+scripts:
+  - /assets/example/catalog.js
+---
+<div class="jackal-catalog-toolbar" hidden data-catalog-toolbar>
+  <label>Search by project or organization
+    <input class="jackal-input" type="search" data-catalog-search>
+  </label>
+  <p role="status" data-catalog-status></p>
+</div>
+<div class="jackal-table-wrap">
+  <table class="jackal-table">
+    <caption class="jackal-sr-only">Project release links</caption>
+    <thead>
+      <tr><th scope="col">Project</th><th scope="col">Organization</th><th scope="col">Releases</th></tr>
+    </thead>
+    <tbody>
+      {% for project in site.data.catalog %}
+        <tr data-catalog-row>
+          <td>{{ project.name | escape }}</td>
+          <td>{{ project.organization | escape }}</td>
+          <td><a href="{{ project.url | escape }}">View {{ project.name | escape }} releases</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p><a href="{{ '/catalog/index.json' | relative_url }}">Download catalog JSON</a></p>

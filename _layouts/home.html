@@ -1,0 +1,21 @@
+---
+layout: jackal
+---
+{% assign jackal_product = page.product | default: site.jackal.product %}
+{% assign jackal_home_hero = page.hero.layout | default: 'centered' %}
+{% include jackal/landing/hero.html hero=page.hero composition=jackal_home_hero %}
+
+{% assign jackal_home_body = content | strip %}
+{% if jackal_home_body != empty %}
+  <div class="wrap section jackal-prose">{{ content }}</div>
+{% endif %}
+
+{% include jackal/sections.html sections=page.sections landing=true %}
+
+{% if site.posts.size > 0 and page.show_posts != false %}
+  <section class="wrap section" id="latest-posts">
+    <h2>{{ page.posts_title | default: 'Latest news' | escape }}</h2>
+    {% assign jackal_home_post_limit = page.posts_limit | default: 3 %}
+    {% include jackal/post-grid.html posts=site.posts limit=jackal_home_post_limit %}
+  </section>
+{% endif %}

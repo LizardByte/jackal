@@ -1,0 +1,171 @@
+:root {
+  --jackal-prose-width: 67ch;
+  --jackal-radius: 1rem;
+}
+
+.jackal-main { min-height: 56vh; padding-bottom: clamp(3rem, 9vw, 8rem); }
+
+.jackal-main a:not(.button), .jackal-prose a:not(.button) {
+  color: var(--jackal-accent);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.jackal-main a:hover, .jackal-prose a:hover { text-decoration-thickness: .13em; }
+
+.jackal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.jackal-input {
+  min-height: 2.25rem;
+  width: min(100%, 30rem);
+  padding: .65rem .8rem;
+  border: 1px solid var(--jackal-border);
+  border-radius: .6rem;
+  background: var(--jackal-surface);
+}
+
+.jackal-hero {
+  display: grid;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+.jackal-hero--with-image { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+
+.jackal-main h1, .jackal-main h2, .jackal-main h3 {
+  line-height: 1.05;
+  letter-spacing: -0.041em;
+  text-wrap: balance;
+}
+
+.jackal-hero h1, .jackal-page-header h1 { margin: 0; font-size: clamp(2.85rem, 7vw, 5.8rem); }
+.jackal-hero h1 { max-width: 15ch; }
+.jackal-hero__title { white-space: pre-line; }
+.jackal-hero__accent { color: var(--jackal-accent); }
+.jackal-hero__copy > :last-child, .jackal-page-header > :last-child { margin-bottom: 0; }
+.jackal-main h2 { margin: 0 0 1.4rem; font-size: clamp(1.85rem, 4.5vw, 3rem); }
+.jackal-main h3 { margin: 0; font-size: 1.35rem; }
+
+.jackal-lede {
+  max-width: 56ch;
+  margin-block: 1.2rem 1.75rem;
+  color: var(--jackal-muted);
+  font-size: clamp(1.05rem, 2.4vw, 1.32rem);
+  line-height: 1.55;
+}
+
+.jackal-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 1.25rem; }
+
+.jackal-section + .jackal-section { margin-top: clamp(3rem, 7vw, 6rem); }
+.jackal-section h2 + .jackal-lede { margin-top: -0.6rem; }
+
+.jackal-section--callout {
+  width: min(calc(100% - 2 * var(--jackal-landing-gutter)), calc(var(--jackal-landing-width) - 2 * var(--jackal-landing-gutter)));
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid var(--jackal-border);
+  border-radius: var(--jackal-radius);
+  background: var(--jackal-accent-soft);
+}
+
+.jackal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+
+.jackal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid var(--jackal-border);
+  border-radius: var(--jackal-radius);
+  background: var(--jackal-surface);
+}
+
+.jackal-card p { margin: 0; color: var(--jackal-muted); }
+.jackal-card .jackal-actions { margin-top: auto; padding-top: 0.25rem; }
+.jackal-card .jackal-prose > :first-child { margin-top: 0; }
+.jackal-card .jackal-prose > :last-child { margin-bottom: 0; }
+
+.jackal-media { min-width: 0; margin: 0; }
+
+.jackal-media img {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--jackal-border);
+  border-radius: var(--jackal-radius);
+  background: var(--jackal-surface);
+}
+
+.jackal-media img.jackal-media__dark { display: none; }
+
+:root[data-theme="dark"] .jackal-media img.jackal-media__light { display: none; }
+:root[data-theme="dark"] .jackal-media img.jackal-media__dark { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .jackal-media img.jackal-media__light { display: none; }
+  :root:not([data-theme="light"]) .jackal-media img.jackal-media__dark { display: block; }
+}
+
+.jackal-media figcaption, .jackal-meta { margin-top: 0.5rem; color: var(--jackal-muted); font-size: 0.9rem; }
+.jackal-faq details { max-width: 52rem; padding-block: 0.8rem; border-bottom: 1px solid var(--jackal-border); }
+.jackal-faq summary { font-weight: 700; }
+.jackal-faq details > div { margin-inline-start: 1.15rem; }
+
+.jackal-reading { max-width: 51rem; }
+.jackal-page-header { margin-block: clamp(2rem, 6vw, 4.75rem) 1.5rem; }
+.jackal-page-header h1 { font-size: clamp(2.4rem, 6vw, 4.75rem); }
+.jackal-prose { max-width: var(--jackal-prose-width); overflow-wrap: break-word; }
+.jackal-prose > h2 { margin-top: 1.6em; font-size: clamp(1.6rem, 4vw, 2.25rem); }
+.jackal-prose > h3 { margin-top: 1.55em; }
+.jackal-prose > :last-child { margin-bottom: 0; }
+.jackal-prose img { max-width: 100%; height: auto; }
+.jackal-prose pre { padding: 1rem; overflow: auto; }
+
+.jackal-prose pre, .jackal-prose :not(pre) > code {
+  border-radius: 0.4rem;
+  background: var(--jackal-muted-surface);
+}
+
+.jackal-prose :not(pre) > code { padding: 0.1em 0.28em; }
+.jackal-prose blockquote { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--jackal-accent); }
+.jackal-catalog-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-block: 1.5rem; }
+.jackal-catalog-toolbar[hidden] { display: none; }
+.jackal-catalog-toolbar label { display: grid; gap: 0.25rem; flex: 1 1 18rem; }
+.jackal-table-wrap { overflow-x: auto; border: 1px solid var(--jackal-border); border-radius: var(--jackal-radius); }
+
+.jackal-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--jackal-surface);
+  text-align: start;
+}
+
+.jackal-table th, .jackal-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--jackal-border); text-align: start; }
+.jackal-table th { background: var(--jackal-muted-surface); }
+.jackal-table tbody tr:last-child td { border-bottom: 0; }
+
+.jackal-card-logo { width: 38px; height: 38px; object-fit: contain; margin-bottom: 1rem; }
+.client-card .jackal-actions { margin-top: auto; }
+
+.jackal-prose p + p, .jackal-prose > :is(ul, ol, pre, blockquote) { margin-block: 1em; }
+.jackal-prose > h2 + p, .jackal-prose > h3 + p, .jackal-meta + .jackal-prose { margin-top: .75em; }
+.jackal-post-card h3 { margin-top: .45rem; }
+.jackal-post-card h3 a:hover { color: var(--jackal-accent); }
+
+@media (max-width: 46rem) {
+  .jackal-hero--with-image { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,130 @@
+---
+layout: landing
+title: "Koko — Your media. At home."
+description: "Koko is a self-hosted media server in development, bringing movies, shows, music, books, and podcasts into one browser experience. A LizardByte project."
+permalink: /koko/
+product:
+  name: Koko
+  brand_styles: /assets/example/koko-brand.css
+  icons: product/koko-icons.html
+  url: /koko/
+  logo: https://koko.lizardbyte.dev/assets/koko.svg
+  icon: https://koko.lizardbyte.dev/assets/koko.svg
+  nav:
+    - label: "The collection"
+      url: "#collection"
+    - label: "Development"
+      url: "#development"
+    - label: "Support"
+      url: "#support"
+  action:
+    label: "GitHub"
+    url: "https://github.com/KokoStreamTV/Koko"
+    icon: github
+    icon_position: start
+  footer:
+    logo_size: 35
+    tagline: Your media. At home.
+    action:
+      label: "Website source"
+      url: "https://github.com/KokoStreamTV/KokoStreamTV.github.io"
+      icon: external
+    links:
+      - label: "Explore projects"
+        url: "/"
+        scope: umbrella
+      - label: "Get support"
+        url: "/support/"
+        scope: umbrella
+      - label: "Privacy"
+        url: "/privacy/"
+        scope: umbrella
+      - label: "Terms"
+        url: "/terms/"
+        scope: umbrella
+hero:
+  layout: illustrated
+  eyebrow: A LizardByte project · In development
+  marker: status
+  title: Your media.
+  accent: At home.
+  description: A self-hosted media server for watching, listening, and reading. Built in Rust, and still taking shape.
+  actions:
+    - label: Follow development
+      url: https://github.com/KokoStreamTV/Koko
+      icon: arrow
+      primary: true
+    - label: Read the docs
+      url: https://docs.lizardbyte.dev/projects/koko/latest/
+      icon: external
+  note: Koko is in early development. Features and interfaces are evolving.
+  image:
+    src: https://koko.lizardbyte.dev/assets/collection.svg
+    width: 680
+    height: 580
+    alt: An original illustration of a movie cover, vinyl record, and book.
+    caption: For the things you love to keep.
+---
+<!-- Adapted from https://github.com/KokoStreamTV/KokoStreamTV.github.io. SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="shell project-strip" aria-label="Project details">
+  <span><span class="tiny-dot" aria-hidden="true"></span> Self-hosted</span>
+  <span>Built in Rust</span>
+  <a href="https://github.com/KokoStreamTV/Koko/blob/master/LICENSE">Source available <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+  <span>Growing with LizardByte</span>
+</div>
+
+<section class="shell collection section" id="collection" aria-labelledby="collection-title">
+  <div class="section-heading section-heading--split">
+    <div><p class="eyebrow">A collection of your own</p><h2 id="collection-title">Watch. Listen. Read.</h2></div>
+    <p>Koko is taking shape around your library, from the movies you return to to the books you have yet to open.</p>
+  </div>
+  <div class="media-grid">
+    <article class="media-category">
+      <span class="category-icon"><svg class="icon" aria-hidden="true"><use href="#film"/></svg></span>
+      <p class="category-number" aria-hidden="true">01 / WATCH</p>
+      <h3>Movies &amp; shows</h3>
+      <p>A browser experience for your video library, with artwork, metadata, and playback progress.</p>
+      <span class="category-detail">Your next movie night starts here.</span>
+    </article>
+    <article class="media-category">
+      <span class="category-icon"><svg class="icon" aria-hidden="true"><use href="#music"/></svg></span>
+      <p class="category-number" aria-hidden="true">02 / LISTEN</p>
+      <h3>Music &amp; podcasts</h3>
+      <p>Explore albums and artists, build playlists, and follow podcasts alongside the rest of your collection.</p>
+      <span class="category-detail">Find something to put on repeat.</span>
+    </article>
+    <article class="media-category">
+      <span class="category-icon"><svg class="icon" aria-hidden="true"><use href="#book"/></svg></span>
+      <p class="category-number" aria-hidden="true">03 / READ</p>
+      <h3>Books &amp; audiobooks</h3>
+      <p>Bring ebooks, comics, PDFs, and audiobooks into your library, with reading and listening progress.</p>
+      <span class="category-detail">A little more room on your bookshelf.</span>
+    </article>
+  </div>
+</section>
+
+<section class="shell development section" id="development" aria-labelledby="development-title">
+  <div class="development-panel">
+    <div class="development-intro">
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Work in progress</p>
+      <h2 id="development-title">Help shape<br>what comes next.</h2>
+      <p>Koko is an active development project, not a finished product. Follow along, explore the documentation, or help us improve it.</p>
+      <p class="platform-note">Development targets Windows, macOS, and Linux.</p>
+    </div>
+    <div class="development-links">
+      <a href="https://github.com/KokoStreamTV/Koko"><span><strong>Follow the project</strong><small>Source code and development updates</small></span><svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+      <a href="https://docs.lizardbyte.dev/projects/koko/latest/"><span><strong>Explore the documentation</strong><small>Setup, library guides, and configuration</small></span><svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+      <a href="https://github.com/KokoStreamTV/Koko/issues"><span><strong>Share your feedback</strong><small>Report a bug or suggest an improvement</small></span><svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+      <a href="{% include jackal/url.html url='/discord' scope='umbrella' %}"><span><strong>Join the conversation</strong><small>Meet the LizardByte community on Discord</small></span><svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="shell support section" id="support" aria-labelledby="support-title">
+  <div class="support-copy"><p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#heart"/></svg> Support the project</p><h2 id="support-title">Made with care.<br>Supported by you.</h2><p>Support LizardByte's ongoing development of Koko and our other projects. Donations are welcome through any of the platforms below.</p></div>
+  <div class="support-actions">
+    <a class="button button-outline" href="https://github.com/sponsors/LizardByte">GitHub Sponsors <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+    <a class="button button-outline" href="https://www.patreon.com/LizardByte">Patreon <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+    <a class="button button-outline" href="https://www.paypal.com/paypalme/ReenigneArcher">PayPal <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
+  </div>
+</section>
