@@ -11,6 +11,8 @@ liquid:
 jackal:
   name: Jackal
   product:
+    logo: /assets/example/jackal.svg
+    icon: /assets/example/jackal.svg
     navigation: menu
   umbrella:
     name: LizardByte

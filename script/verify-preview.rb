@@ -37,6 +37,9 @@ pages.each do |path|
 end
 
 home = read_page(site_dir, "index.html")
+jackal_icon = "#{baseurl}/assets/example/jackal.svg"
+require_fragment(home, %(<link rel="icon" href="#{jackal_icon}">))
+require_fragment(home, %(src="#{jackal_icon}"))
 require_fragment(home, 'class="hero hero--centered"')
 require_fragment(home, 'class="client-grid"')
 require_fragment(home, 'class="navigation-group"')
@@ -76,7 +79,7 @@ abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[Ko
 
 %w[assets/jackal/jackal.css assets/jackal/landing/theme.js assets/jackal/landing.css
    assets/jackal/landing/chrome.css assets/jackal/landing/sections.css assets/jackal/fonts/manrope.woff2
-   assets/example/catalog.js assets/example/sunshine.js assets/example/sunshine-brand.css
+   assets/example/jackal.svg assets/example/catalog.js assets/example/sunshine.js assets/example/sunshine-brand.css
    assets/example/themerr-brand.css assets/example/koko-brand.css].each do |path|
   abort "Missing static asset #{path}" unless File.file?(File.join(site_dir, path))
 end

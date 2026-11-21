@@ -1,7 +1,7 @@
 <div align="center">
   <img
-    src="https://raw.githubusercontent.com/LizardByte/.github/refs/heads/master/branding/logos/logo.svg"
-    alt="LizardByte icon"
+    src="example/assets/example/jackal.svg"
+    alt="Jackal icon"
     width="256"
   />
   <h1 align="center">Jackal</h1>
