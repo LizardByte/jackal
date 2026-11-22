@@ -32,7 +32,7 @@
     if (toggle) {
       const label = `Color theme: ${modeLabels[mode]}. Switch to ${modeLabels[nextMode()]}.`;
       toggle.dataset.mode = mode;
-      toggle.setAttribute('aria-label', label);
+      toggle.querySelector('[data-theme-label]').textContent = label;
       toggle.title = label;
     }
     for (const choice of document.querySelectorAll('[data-theme-mode]')) {

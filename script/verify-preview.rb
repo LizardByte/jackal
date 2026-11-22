@@ -108,7 +108,7 @@ require_fragment(not_found, %(href="#{baseurl}/">Return home</a>))
 require_fragment(not_found, %(href="#{baseurl}/search/"))
 search = read_page(site_dir, "search/index.html")
 require_fragment(search, %(data-search-index="#{baseurl}/search-index.json"))
-require_fragment(search, 'aria-label="Color theme"')
+require_fragment(search, '<legend class="jackal-visually-hidden">Color theme</legend>')
 %w[system light dark].each do |mode|
   require_fragment(search, %(data-theme-mode="#{mode}"))
   require_fragment(search, %(data-theme-icon="#{mode}"))

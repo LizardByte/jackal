@@ -1,16 +1,18 @@
 {% assign theme_control = jackal_product.theme_control | default: site.jackal.theme_control %}
 {% assign theme_modes = 'system,light,dark' | split: ',' %}
 {% if theme_control == 'button' %}
-  <button class="theme-toggle" type="button" aria-label="Color theme" hidden>
+  <button class="theme-toggle" type="button" hidden>
     {% for theme_mode in theme_modes %}{% include jackal/theme-icon.html mode=theme_mode %}{% endfor %}
+    <span class="jackal-visually-hidden" data-theme-label>Color theme</span>
   </button>
 {% else %}
-  <div class="theme-picker" role="group" aria-label="Color theme" hidden>
+  <fieldset class="theme-picker" hidden>
+    <legend class="jackal-visually-hidden">Color theme</legend>
     {% for theme_mode in theme_modes %}
       <button type="button" data-theme-mode="{{ theme_mode }}" title="{{ theme_mode | capitalize }}" aria-pressed="false">
         {% include jackal/theme-icon.html mode=theme_mode %}
         <span class="jackal-visually-hidden">{{ theme_mode | capitalize }}</span>
       </button>
     {% endfor %}
-  </div>
+  </fieldset>
 {% endif %}
