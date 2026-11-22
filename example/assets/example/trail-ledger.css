@@ -1,0 +1,10 @@
+:root {
+  --jackal-paper: light-dark(#f3f5ec, #171d16);
+  --jackal-surface: light-dark(#fcfdf7, #232d20);
+  --jackal-ink: light-dark(#253124, #edf3e8);
+  --jackal-muted: light-dark(#52624e, #b9c8b4);
+  --jackal-accent: light-dark(#38634b, #a8d7b5);
+  --jackal-accent-soft: light-dark(#dde8d7, #314b38);
+  --jackal-border: light-dark(#cfddca, #42533d);
+  --jackal-muted-surface: var(--jackal-accent-soft);
+}

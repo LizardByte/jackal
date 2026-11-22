@@ -6,7 +6,8 @@
       or jackal_url_pair == '//' or jackal_url_scheme == 'mailto' or jackal_url_scheme == 'tel' -%}
   {{- jackal_url | escape -}}
 {%- elsif include.scope == 'umbrella' -%}
-  {%- assign jackal_umbrella_root = site.jackal.umbrella.url | default: '/' | strip -%}
+  {%- assign jackal_umbrella = page.umbrella | default: site.jackal.umbrella -%}
+  {%- assign jackal_umbrella_root = jackal_umbrella.url | default: '/' | strip -%}
   {%- assign jackal_umbrella_root_end = jackal_umbrella_root | slice: -1, 1 -%}
   {%- if jackal_url_start == '/' -%}
     {%- assign jackal_url = jackal_url | remove_first: '/' -%}

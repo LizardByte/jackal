@@ -5,7 +5,7 @@
     width="256"
   />
   <h1 align="center">Jackal</h1>
-  <h4 align="center">A shared Jekyll theme for organizations and their project sites.</h4>
+  <h4 align="center">A Jekyll theme for project sites, communities, blogs, and catalogs.</h4>
 </div>
 
 Jackal provides product landing pages, a project hub, articles, a blog index, and wide catalog pages.
@@ -21,9 +21,12 @@ bundle install
 bundle exec jekyll serve --source example --config example/_config.yml
 ```
 
-Open the address printed by Jekyll to preview the Sunshine, Themerr, and Koko examples,
-the blog, and the filterable release catalog. Product artwork in the examples is served
-by the original sites. Example content and assets are separate from the theme package.
+Open the address printed by Jekyll and visit the [examples gallery](example/examples/index.md).
+It includes a [community homepage](example/examples/community.md),
+a [product page](example/examples/product.md),
+a [Markdown showcase](example/_posts/2026-01-02-markdown-showcase.md),
+and a filterable release catalog. The Sunshine, Themerr, and Koko examples use
+artwork from their original sites. Example content and assets are separate from the theme package.
 
 For a PR, copy the preview command from the CI run summary or preview comment.
 It serves the files GitHub already built. See [Build and preview a Jackal site](docs/build-and-preview.md)
@@ -90,6 +93,7 @@ jackal:
   Use `/` for the root of the same origin, or a path such as `/previews/42` when a
   preview hosts the umbrella site there. Links marked `scope: umbrella` use that
   URL, independently of the project's own `baseurl`.
+- A page can set `umbrella` in front matter when its parent differs from the rest of the site.
 - `jackal.umbrella.logo` is a project asset unless it is an absolute URL or
   `jackal.umbrella.logo_scope: umbrella` is set. If `jackal.umbrella` is omitted,
   the footer displays the site's own name.
@@ -169,9 +173,9 @@ a nested preview URL.
 To switch a `picture` source with the selected theme, add `data-jackal-dark-image`
 to its dark-mode `source` and supply the default image in the `img` element.
 
-- [Sunshine](example/sunshine.html) includes the device scene, setup illustration, clients, and download grid.
-- [Themerr](example/themerr.html) includes the centered coral hero, server features, and setup panels.
-- [Koko](example/koko.html) includes the collection artwork, media categories, and development panel.
+- [Sunshine](example/sites/sunshine.html) includes the device scene, setup illustration, clients, and download grid.
+- [Themerr](example/sites/themerr.html) includes the centered coral hero, server features, and setup panels.
+- [Koko](example/sites/koko.html) includes the collection artwork, media categories, and development panel.
 
 The examples supply their own logos, icons, colors, and content. The landing CSS
 and layout ship in the theme package. Shared styles and example files adapted

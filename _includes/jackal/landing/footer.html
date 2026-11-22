@@ -1,6 +1,6 @@
 {%- assign jackal_footer = jackal_product.footer -%}
 {%- assign jackal_footer_links = jackal_footer.links | default: site.jackal.footer -%}
-{%- assign jackal_parent = site.jackal.umbrella -%}
+{%- assign jackal_parent = page.umbrella | default: site.jackal.umbrella -%}
 {%- assign jackal_footer_brand_size = jackal_footer.logo_size | default: 38 -%}
 <footer class="site-footer wrap{% if jackal_footer.style == 'inline' %} site-footer--inline{% endif %}">
   <div class="footer-top">

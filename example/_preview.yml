@@ -2,6 +2,11 @@
 url: https://preview.example.org
 baseurl: /previews/42/ThemerrDB
 
-jackal:
-  umbrella:
-    url: /previews/42
+defaults:
+  - scope:
+      path: sites
+    values:
+      umbrella:
+        name: LizardByte
+        url: /previews/42
+        logo: https://sunshine.lizardbyte.dev/assets/lizardbyte.svg

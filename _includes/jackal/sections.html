@@ -7,7 +7,7 @@
     {% if include.landing %}</div>{% endif %}
     {% case jackal_section.type %}
       {% when 'cards' %}
-        <div class="{% if include.landing %}client-grid{% else %}jackal-grid{% endif %}">
+        <div class="{% if include.landing %}client-grid jackal-section-cards{% else %}jackal-grid{% endif %}">
           {% for jackal_card in jackal_section.items %}
             <article class="{% if include.landing %}client-card{% else %}jackal-card{% endif %}">
               {% if jackal_card.logo %}

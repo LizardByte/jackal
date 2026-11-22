@@ -16,8 +16,10 @@ def read_page(site_dir, path)
 end
 
 post_path = "2026-01-01-a-home-for-each-project/"
+showcase_path = "blog/markdown-showcase/"
 pages = %w[index.html sunshine/index.html themerr/index.html koko/index.html catalog/index.html
-           blog/index.html about/index.html] + ["#{post_path}index.html"]
+           blog/index.html about/index.html getting-started/index.html examples/index.html
+           examples/community/index.html examples/product/index.html] + ["#{post_path}index.html", "#{showcase_path}index.html"]
 
 pages.each do |path|
   html = read_page(site_dir, path)
@@ -28,10 +30,11 @@ pages.each do |path|
     require_fragment(html, %(href="#{baseurl}/assets/example/#{product}-brand.css"))
     require_fragment(html, %(href="#{baseurl}/#{product}/"))
     require_fragment(html, 'class="footer-top"')
+    require_fragment(html, %(href="#{umbrella_url.sub(%r{/$}, "")}/support/"))
   else
     require_fragment(html, %(href="#{baseurl}/assets/jackal/jackal.css"))
+    abort "Unexpected umbrella branding in #{path}" if html.include?('class="umbrella"')
   end
-  require_fragment(html, %(href="#{umbrella_url.sub(%r{/$}, "")}/support/"))
   public_path = path.delete_suffix("index.html")
   require_fragment(html, %(rel="canonical" href="#{origin}#{baseurl}/#{public_path}"))
 end
@@ -41,11 +44,33 @@ jackal_icon = "#{baseurl}/assets/example/jackal.svg"
 require_fragment(home, %(<link rel="icon" href="#{jackal_icon}">))
 require_fragment(home, %(src="#{jackal_icon}"))
 require_fragment(home, 'class="hero hero--centered"')
-require_fragment(home, 'class="client-grid"')
-require_fragment(home, 'class="navigation-group"')
+require_fragment(home, 'class="client-grid jackal-section-cards"')
 require_fragment(home, %(href="#{baseurl}/#{post_path}"))
-require_fragment(home, %(href="#projects"))
-require_fragment(home, %(href="#{baseurl}/sunshine/"))
+require_fragment(home, %(href="#{baseurl}/examples/"))
+require_fragment(home, %(href="#{baseurl}/getting-started/"))
+
+gallery = read_page(site_dir, "examples/index.html")
+%W[sunshine/ themerr/ koko/ examples/community/ examples/product/ #{showcase_path} catalog/].each do |path|
+  require_fragment(gallery, %(href="#{baseurl}/#{path}"))
+end
+
+community = read_page(site_dir, "examples/community/index.html")
+require_fragment(community, %(href="#{baseurl}/assets/example/maple-makers.css"))
+require_fragment(community, 'id="workshops"')
+require_fragment(community, 'id="membership"')
+
+product = read_page(site_dir, "examples/product/index.html")
+require_fragment(product, %(href="#{baseurl}/assets/example/trail-ledger.css"))
+require_fragment(product, 'class="jackal-faq"')
+require_fragment(product, %(href="#{baseurl}/#{showcase_path}"))
+
+showcase = read_page(site_dir, "#{showcase_path}index.html")
+%w[<blockquote> <table> <pre <sup].each { |fragment| require_fragment(showcase, fragment) }
+require_fragment(showcase, %(src="#{jackal_icon}"))
+
+guide = read_page(site_dir, "getting-started/index.html")
+require_fragment(guide, "language-ruby")
+require_fragment(guide, "bundle exec jekyll serve")
 
 sunshine = read_page(site_dir, "sunshine/index.html")
 require_fragment(sunshine, 'class="stream-scene"')
@@ -80,7 +105,8 @@ abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[Ko
 %w[assets/jackal/jackal.css assets/jackal/landing/theme.js assets/jackal/landing.css
    assets/jackal/landing/chrome.css assets/jackal/landing/sections.css assets/jackal/fonts/manrope.woff2
    assets/example/jackal.svg assets/example/catalog.js assets/example/sunshine.js assets/example/sunshine-brand.css
-   assets/example/themerr-brand.css assets/example/koko-brand.css].each do |path|
+   assets/example/themerr-brand.css assets/example/koko-brand.css assets/example/maple-makers.css
+   assets/example/trail-ledger.css].each do |path|
   abort "Missing static asset #{path}" unless File.file?(File.join(site_dir, path))
 end
 

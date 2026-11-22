@@ -1,8 +1,8 @@
 ---
 layout: post
 title: A home for each project
-description: How Jackal brings the project sites together.
-author: LizardByte
+description: Give several sites a shared design and their own identities.
+author: Jackal
 ---
 
 Each project can publish its own website and choose its own colors, navigation, and content.
@@ -10,4 +10,5 @@ Jackal provides the shared layouts used for the home page, the blog, and the cat
 
 ## Find a project
 
-Visit the [project index]({{ '/' | relative_url }}) to explore the three example sites.
+Visit the [examples gallery]({{ '/examples/' | relative_url }}) to compare a
+community homepage, a sample product, and project sites with their own artwork.

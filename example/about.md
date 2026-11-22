@@ -1,9 +1,12 @@
 ---
 layout: page
-title: About this preview
+title: About Jackal
 permalink: /about/
 ---
 
-This site demonstrates Jackal's layouts with sample content for LizardByte projects.
+Jackal is a Jekyll theme for project sites, community homepages, blogs, and catalogs.
+Each site can choose its own logo, colors, navigation, and publishing path.
 
-Live builds, releases, and documentation are maintained by the individual projects.
+The [examples]({{ '/examples/' | relative_url }}) show how the same theme works
+with different kinds of content and branding. Jackal is maintained by
+[LizardByte](https://app.lizardbyte.dev/).

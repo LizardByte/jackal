@@ -65,6 +65,8 @@
 .jackal-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 1.25rem; }
 
 .jackal-section + .jackal-section { margin-top: clamp(3rem, 7vw, 6rem); }
+.jackal-section.section + .jackal-section.section { margin-top: 0; padding-top: 0; }
+.jackal-section-cards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
 .jackal-section h2 + .jackal-lede { margin-top: -0.6rem; }
 
 .jackal-section--callout {
@@ -142,6 +144,12 @@
 
 .jackal-prose :not(pre) > code { padding: 0.1em 0.28em; }
 .jackal-prose blockquote { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--jackal-accent); }
+.jackal-prose table { width: 100%; margin-block: 1em; border-collapse: collapse; }
+.jackal-prose :is(th, td) { padding: .4rem .65rem; border: 1px solid var(--jackal-border); text-align: start; }
+.jackal-prose th { background: var(--jackal-muted-surface); }
+.jackal-prose .highlight :is(.k, .kd, .kn, .na, .nb) { color: var(--jackal-accent); }
+.jackal-prose .highlight :is(.s, .s1, .s2, .m, .mi) { color: light-dark(#316043, #a3d5b0); }
+.jackal-prose .highlight :is(.c, .c1) { color: var(--jackal-muted); }
 .jackal-catalog-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-block: 1.5rem; }
 .jackal-catalog-toolbar[hidden] { display: none; }
 .jackal-catalog-toolbar label { display: grid; gap: 0.25rem; flex: 1 1 18rem; }

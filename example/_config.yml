@@ -1,7 +1,7 @@
 ---
 theme: jekyll-theme-jackal
-title: Jackal Preview
-description: Preview the shared Jekyll theme for LizardByte sites.
+title: Jackal
+description: A Jekyll theme for project sites, communities, blogs, and catalogs.
 url: https://example.org
 permalink: /:year-:month-:day-:title/
 strict_front_matter: true
@@ -14,34 +14,29 @@ jackal:
     logo: /assets/example/jackal.svg
     icon: /assets/example/jackal.svg
     navigation: menu
-  umbrella:
-    name: LizardByte
-    url: https://app.lizardbyte.dev/
-    logo: https://sunshine.lizardbyte.dev/assets/lizardbyte.svg
   nav:
-    - label: Home
-      url: /
-    - label: Projects
-      items:
-        - label: Sunshine
-          url: /sunshine/
-        - label: Themerr
-          url: /themerr/
-        - label: Koko
-          url: /koko/
-    - label: Catalog
-      url: /catalog/
+    - label: Getting started
+      url: /getting-started/
+    - label: Examples
+      url: /examples/
     - label: Blog
       url: /blog/
     - label: GitHub
       url: https://github.com/LizardByte/jackal
   footer:
-    - label: Explore projects
-      url: /
-      scope: umbrella
-    - label: Get support
-      url: /support/
-      scope: umbrella
-    - label: Website source
-      url: https://github.com/LizardByte/jackal
+    - label: Getting started
+      url: /getting-started/
+    - label: Examples
+      url: /examples/
+    - label: About Jackal
+      url: /about/
   copyright: LizardByte
+
+defaults:
+  - scope:
+      path: sites
+    values:
+      umbrella:
+        name: LizardByte
+        url: https://app.lizardbyte.dev/
+        logo: https://sunshine.lizardbyte.dev/assets/lizardbyte.svg
