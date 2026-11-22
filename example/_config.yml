@@ -18,7 +18,6 @@ jackal:
   search: /search/
   tags: /tags/
   share: true
-  theme_control: select
   code:
     light: ayu
     dark: slate

@@ -2,13 +2,15 @@
   const root = document.documentElement;
   const system = window.matchMedia('(prefers-color-scheme: dark)');
   const storageKey = 'jackal-color-mode';
-  const modes = ['system', 'light', 'dark'];
+  const modeOrder = ['system', 'light', 'dark'];
+  const modes = new Set(modeOrder);
+  const modeLabels = { system: 'System', light: 'Light', dark: 'Dark' };
   const configured = document.currentScript?.dataset.defaultTheme;
-  let mode = modes.includes(configured) ? configured : 'system';
+  let mode = modes.has(configured) ? configured : 'system';
 
   try {
     const saved = localStorage.getItem(storageKey);
-    if (modes.includes(saved)) mode = saved;
+    if (modes.has(saved)) mode = saved;
   } catch {
     // The controls also work in this page when storage is unavailable.
   }
@@ -16,13 +18,25 @@
   function applyTheme() {
     const dark = mode === 'dark' || (mode === 'system' && system.matches);
     root.dataset.theme = dark ? 'dark' : 'light';
-    const toggle = document.querySelector('.theme-toggle');
-    const label = dark ? 'Switch to light mode' : 'Switch to dark mode';
-    toggle?.setAttribute('aria-label', label);
-    toggle?.setAttribute('title', label);
-    toggle?.querySelector('[data-jackal-theme-icon]')?.setAttribute('href', dark ? '#sun' : '#moon');
     for (const image of document.querySelectorAll('source[data-jackal-dark-image]')) {
       image.media = dark ? 'all' : 'not all';
+    }
+  }
+
+  function nextMode() {
+    return modeOrder[(modeOrder.indexOf(mode) + 1) % modeOrder.length];
+  }
+
+  function updateControls() {
+    const toggle = document.querySelector('.theme-toggle');
+    if (toggle) {
+      const label = `Color theme: ${modeLabels[mode]}. Switch to ${modeLabels[nextMode()]}.`;
+      toggle.dataset.mode = mode;
+      toggle.setAttribute('aria-label', label);
+      toggle.title = label;
+    }
+    for (const choice of document.querySelectorAll('[data-theme-mode]')) {
+      choice.setAttribute('aria-pressed', String(choice.dataset.themeMode === mode));
     }
   }
 
@@ -34,6 +48,7 @@
       // Retain the selection for the current page.
     }
     applyTheme();
+    updateControls();
   }
 
   function setupMenu() {
@@ -61,16 +76,18 @@
   document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.querySelector('.theme-toggle');
     if (toggle) {
-      toggle.addEventListener('click', () => saveMode(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+      toggle.addEventListener('click', () => saveMode(nextMode()));
       toggle.hidden = false;
     }
-    const select = document.querySelector('.theme-select');
-    if (select) {
-      select.value = mode;
-      select.addEventListener('change', () => saveMode(select.value));
-      select.hidden = false;
+    const picker = document.querySelector('.theme-picker');
+    if (picker) {
+      for (const choice of picker.querySelectorAll('[data-theme-mode]')) {
+        choice.addEventListener('click', () => saveMode(choice.dataset.themeMode));
+      }
+      picker.hidden = false;
     }
     applyTheme();
+    updateControls();
     system.addEventListener('change', applyTheme);
     setupMenu();
   });

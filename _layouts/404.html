@@ -1,7 +1,16 @@
 ---
-layout: page
+layout: jackal
 ---
-<p>The page you requested could not be found.</p>
-<p><a href="{{ '/' | relative_url | escape }}">Return home</a>
-  {% if site.jackal.search %} · <a href="{{ site.jackal.search | relative_url | escape }}">Search the site</a>{% endif %}
-</p>
+<section class="jackal-wrap jackal-error">
+  <div class="jackal-error-card">
+    <p class="jackal-error-code">404</p>
+    <h1>{{ page.title | default: 'Page not found' | escape }}</h1>
+    <p class="jackal-lede">{{ page.description | default: 'The page may have moved or the address may be incorrect.' | escape }}</p>
+    <div class="jackal-actions">
+      <a class="button button-primary" href="{{ '/' | relative_url | escape }}">Return home</a>
+      {% if site.jackal.search %}
+        <a class="button button-outline" href="{{ site.jackal.search | relative_url | escape }}">Search the site</a>
+      {% endif %}
+    </div>
+  </div>
+</section>

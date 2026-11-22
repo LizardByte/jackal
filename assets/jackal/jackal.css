@@ -228,6 +228,53 @@
 #jackal-search-status:not(:empty) { display: block; margin-block: 1em; }
 .jackal-search-results { padding-inline-start: 1.2rem; }
 #jackal-search-results p { margin-block: .25rem 1rem; }
+.jackal-carousel-track { margin: 0; padding: 0; list-style: none; }
+.jackal-carousel-slide + .jackal-carousel-slide { margin-top: 1rem; }
+.jackal-carousel[data-enhanced] .jackal-carousel-track {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border-radius: var(--jackal-radius);
+  scroll-snap-type: inline mandatory;
+}
+.jackal-carousel[data-enhanced] .jackal-carousel-slide {
+  min-width: 0;
+  margin-top: 0;
+  scroll-snap-align: start;
+}
+.jackal-carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .8rem;
+  margin-top: .75rem;
+}
+.jackal-carousel-controls[hidden] { display: none; }
+.jackal-carousel-controls .button { min-width: 44px; padding: .3rem .4rem; }
+.jackal-carousel-controls [aria-disabled="true"] { opacity: .5; cursor: default; }
+.jackal-carousel-controls output { min-width: 3ch; color: var(--jackal-muted); font-variant-numeric: tabular-nums; }
+.jackal-error { min-height: 55vh; display: grid; place-items: center; padding-block: clamp(3rem, 9vw, 7rem); }
+.jackal-error-card {
+  width: min(100%, 42rem);
+  padding: clamp(1.5rem, 6vw, 4rem);
+  border: 1px solid var(--jackal-border);
+  border-radius: var(--jackal-radius);
+  background: var(--jackal-surface);
+}
+.jackal-error .jackal-error-code {
+  margin: 0 0 .5rem;
+  color: var(--jackal-accent);
+  font-size: clamp(3.5rem, 14vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -.07em;
+  line-height: 1;
+}
+.jackal-error h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 3rem); }
+.jackal-share a { display: inline-flex; align-items: center; gap: .35rem; }
 
 @media (max-width: 46rem) {
   .jackal-hero--with-image { grid-template-columns: minmax(0, 1fr); }

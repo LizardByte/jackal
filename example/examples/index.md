@@ -69,4 +69,18 @@ sections:
             url: /tags/
           - label: See the 404 page
             url: /404.html
+  - type: carousel
+    id: layout-gallery
+    title: Community and product layouts
+    items:
+      - src: /assets/example/maple-makers-preview.jpg
+        alt: The Maple Makers homepage with its workshop and membership links.
+        caption: Maple Makers community homepage
+        width: 1120
+        height: 684
+      - src: /assets/example/trail-ledger-preview.jpg
+        alt: The Trail Ledger homepage with its hiking journal and feature links.
+        caption: Trail Ledger product homepage
+        width: 1120
+        height: 684
 ---

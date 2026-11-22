@@ -3,6 +3,10 @@
 {% include jackal/resources.html kind='script' resources=external_scripts %}
 {% include jackal/resources.html kind='script' resources=page.js %}
 {% include jackal/resources.html kind='script' resources=page.scripts %}
+{% assign carousels = page.sections | where: 'type', 'carousel' %}
+{% if carousels.size > 0 %}
+  <script src="{{ '/assets/jackal/carousel.js' | relative_url | escape }}" defer></script>
+{% endif %}
 {% if page.mathjax == true %}
   <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-mml-chtml.js"
           integrity="sha384-OrHfGTnIbkl0do3N76qW/uWr38o91N05sbSPuYBPLH+hG8X/dNSrjZf3AGjzrCwC"

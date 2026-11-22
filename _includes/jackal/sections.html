@@ -25,6 +25,8 @@
             {% include jackal/media.html image=jackal_gallery_image %}
           {% endfor %}
         </div>
+      {% when 'carousel' %}
+        {% include jackal/carousel.html items=jackal_section.items label=jackal_section.title %}
       {% when 'faq' %}
         <div class="jackal-faq">
           {% for jackal_question in jackal_section.items %}

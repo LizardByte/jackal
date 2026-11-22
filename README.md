@@ -127,6 +127,7 @@ Product and home pages build their content using these section types:
 
 - `cards` for features, linked projects, or platform downloads.
 - `gallery` for screenshots, with optional alternate images for dark mode.
+- `carousel` for a browsable row of screenshots using the same image fields as `gallery`.
 - `faq` for expandable questions and answers.
 - `callout` for a highlighted action such as sponsorship or installation help.
 - `custom` for a site-owned template in `_includes`. Set `template` to its

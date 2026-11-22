@@ -33,7 +33,7 @@
     <meta property="og:image" content="{{ social_image | absolute_url | escape }}">
     <meta name="twitter:image" content="{{ social_image | absolute_url | escape }}">
   {% endif %}
-  {% if page.noindex %}<meta name="robots" content="noindex">{% endif %}
+  {% if page.noindex or page.url == '/404.html' %}<meta name="robots" content="noindex">{% endif %}
   {% if site.jackal.feed %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}"
           href="{{ site.jackal.feed | relative_url | escape }}">

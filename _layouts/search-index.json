@@ -2,7 +2,7 @@
   {%- assign entries = site.html_pages | concat: site.posts | uniq -%}
   {%- assign separator = '' -%}
   {%- for entry in entries -%}
-    {%- unless entry.noindex or entry.search == false or entry.title == nil -%}
+    {%- unless entry.noindex or entry.search == false or entry.title == nil or entry.url == '/404.html' -%}
       {{ separator }}
       {
         "title": {{ entry.title | jsonify }},

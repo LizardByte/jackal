@@ -1,12 +1,22 @@
 {% assign profiles = jackal_product.social %}
 {% if profiles == nil %}{% assign profiles = site.jackal.social %}{% endif %}
 {% if profiles.size > 0 %}
+  {% assign icons = 'bluesky,discord,facebook,github,instagram,linkedin,mastodon,patreon,reddit,rss,x,youtube' | split: ',' %}
   <nav class="jackal-social" aria-label="Social links">
     {% for profile in profiles %}
-      <a href="{% include jackal/url.html url=profile.url %}">
-        {% if profile.icon %}{% include jackal/landing/icon.html name=profile.icon small=true %}{% endif %}
-        {{ profile.label | escape }}
-      </a>
+      {% assign name = profile.icon | default: profile.label | downcase %}
+      {% if name == 'twitter' %}{% assign name = 'x' %}{% endif %}
+      {% if icons contains name %}
+        <a class="jackal-social-link" href="{% include jackal/url.html url=profile.url %}" title="{{ profile.label | escape }}">
+          {% include jackal/social-icon.html name=name %}
+          <span class="jackal-visually-hidden">{{ profile.label | escape }}</span>
+        </a>
+      {% else %}
+        <a href="{% include jackal/url.html url=profile.url %}">
+          {% if profile.icon %}{% include jackal/landing/icon.html name=profile.icon small=true %}{% endif %}
+          {{ profile.label | escape }}
+        </a>
+      {% endif %}
     {% endfor %}
   </nav>
 {% endif %}
