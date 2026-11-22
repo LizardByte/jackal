@@ -32,13 +32,22 @@
       </nav>
     {% endif %}
     {% unless jackal_menu %}<div class="header-actions">{% endunless %}
-      <button class="theme-toggle" type="button" aria-label="Switch color theme" hidden>
-        {% if jackal_product.icon_style == 'glyph' %}
-          <span class="sun-icon" aria-hidden="true">☀</span><span class="moon-icon" aria-hidden="true">☾</span>
-        {% else %}
-          <svg aria-hidden="true" class="icon"><use data-jackal-theme-icon href="#moon"/></svg>
-        {% endif %}
-      </button>
+      {% assign theme_control = jackal_product.theme_control | default: site.jackal.theme_control %}
+      {% if theme_control == 'select' %}
+        <select class="theme-select" aria-label="Color theme" hidden>
+          <option value="system">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      {% else %}
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" hidden>
+          {% if jackal_product.icon_style == 'glyph' %}
+            <span class="sun-icon" aria-hidden="true">☀</span><span class="moon-icon" aria-hidden="true">☾</span>
+          {% else %}
+            <svg aria-hidden="true" class="icon"><use data-jackal-theme-icon href="#moon"/></svg>
+          {% endif %}
+        </button>
+      {% endif %}
       {% if jackal_action %}
         <a class="{{ jackal_action_class }}"
            href="{% include jackal/url.html url=jackal_action.url scope=jackal_action.scope %}">

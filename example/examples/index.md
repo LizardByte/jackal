@@ -46,12 +46,12 @@ sections:
     title: Content examples
     items:
       - title: Markdown showcase
-        description: Headings, images, tables, code, and footnotes in a sample post.
+        description: A cover image, two authors, tags, and a sample of everyday Markdown.
         actions:
           - label: Read the Markdown sample
             url: /blog/markdown-showcase/
       - title: Blog index
-        description: A list of articles with publication dates and excerpts.
+        description: A paginated list of articles with thumbnails and excerpts.
         actions:
           - label: Browse posts
             url: /blog/
@@ -60,4 +60,13 @@ sections:
         actions:
           - label: Browse releases
             url: /catalog/
+      - title: Publishing
+        description: Search, a post tag archive, and a custom 404 page.
+        actions:
+          - label: Search
+            url: /search/
+          - label: Browse tags
+            url: /tags/
+          - label: See the 404 page
+            url: /404.html
 ---

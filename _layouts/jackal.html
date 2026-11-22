@@ -5,7 +5,9 @@
 <html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}"
       data-jackal-container="{{ jackal_product.container | default: 'standard' | escape }}"
       data-jackal-density="{{ jackal_product.density | default: 'comfortable' | escape }}"
-      data-jackal-type="{{ jackal_product.typography | default: 'standard' | escape }}">
+      data-jackal-type="{{ jackal_product.typography | default: 'standard' | escape }}"
+      data-code-light="{{ page.code.light | default: site.jackal.code.light | default: 'default' | escape }}"
+      data-code-dark="{{ page.code.dark | default: site.jackal.code.dark | default: 'default' | escape }}">
   {% include jackal/head.html %}
   <body{% if page.layout == 'product' %} class="jackal-product"{% endif %}>
     <a class="skip" href="#main">Skip to content</a>
@@ -19,6 +21,8 @@
       {{ content }}
     </main>
     {% include jackal/landing/footer.html %}
+    {% assign footer_hooks = page.footer_extra | default: page['footer-extra'] %}
+    {% for hook in footer_hooks %}{% include {{ hook }} %}{% endfor %}
     {% include jackal/scripts.html %}
   </body>
 </html>

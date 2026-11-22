@@ -1,0 +1,12 @@
+{% assign profiles = jackal_product.social %}
+{% if profiles == nil %}{% assign profiles = site.jackal.social %}{% endif %}
+{% if profiles.size > 0 %}
+  <nav class="jackal-social" aria-label="Social links">
+    {% for profile in profiles %}
+      <a href="{% include jackal/url.html url=profile.url %}">
+        {% if profile.icon %}{% include jackal/landing/icon.html name=profile.icon small=true %}{% endif %}
+        {{ profile.label | escape }}
+      </a>
+    {% endfor %}
+  </nav>
+{% endif %}

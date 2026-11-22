@@ -1,6 +1,9 @@
-{% for jackal_script in site.jackal.scripts %}
-  <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
-{% endfor %}
-{% for jackal_script in page.scripts %}
-  <script src="{% include jackal/url.html url=jackal_script %}" defer></script>
-{% endfor %}
+{% include jackal/resources.html kind='script' resources=site.jackal.scripts %}
+{% assign external_scripts = page['ext-js'] %}
+{% include jackal/resources.html kind='script' resources=external_scripts %}
+{% include jackal/resources.html kind='script' resources=page.js %}
+{% include jackal/resources.html kind='script' resources=page.scripts %}
+{% if page.mathjax == true %}
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
+{% endif %}
+{% include jackal/analytics.html %}

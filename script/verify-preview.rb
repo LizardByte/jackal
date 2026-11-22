@@ -19,7 +19,8 @@ post_path = "2026-01-01-a-home-for-each-project/"
 showcase_path = "blog/markdown-showcase/"
 pages = %w[index.html sunshine/index.html themerr/index.html koko/index.html catalog/index.html
            blog/index.html about/index.html getting-started/index.html examples/index.html
-           examples/community/index.html examples/product/index.html] + ["#{post_path}index.html", "#{showcase_path}index.html"]
+           examples/community/index.html examples/product/index.html blog/page2/index.html
+           search/index.html tags/index.html 404.html] + ["#{post_path}index.html", "#{showcase_path}index.html"]
 
 pages.each do |path|
   html = read_page(site_dir, path)
@@ -37,6 +38,7 @@ pages.each do |path|
   end
   public_path = path.delete_suffix("index.html")
   require_fragment(html, %(rel="canonical" href="#{origin}#{baseurl}/#{public_path}"))
+  require_fragment(html, %(href="#{baseurl}/feed.xml"))
 end
 
 home = read_page(site_dir, "index.html")
@@ -67,6 +69,51 @@ require_fragment(product, %(href="#{baseurl}/#{showcase_path}"))
 showcase = read_page(site_dir, "#{showcase_path}index.html")
 %w[<blockquote> <table> <pre <sup].each { |fragment| require_fragment(showcase, fragment) }
 require_fragment(showcase, %(src="#{jackal_icon}"))
+require_fragment(showcase, %(property="og:image" content="#{origin}#{baseurl}/assets/example/jackal-theme.jpg"))
+require_fragment(showcase, 'name="twitter:card" content="summary_large_image"')
+require_fragment(showcase, 'class="jackal-post-cover"')
+require_fragment(showcase, "Jackal maintainers")
+require_fragment(showcase, "Trail Ledger")
+require_fragment(showcase, " min read")
+require_fragment(showcase, %(href="#{baseurl}/tags/#markdown"))
+require_fragment(showcase, %(rel="prev" href="#{baseurl}/#{post_path}"))
+require_fragment(showcase, 'class="jackal-share"')
+require_fragment(showcase, 'data-code-dark="slate"')
+
+blog = read_page(site_dir, "blog/index.html")
+require_fragment(blog, 'class="jackal-post-thumbnail"')
+require_fragment(blog, %(rel="next" href="#{baseurl}/blog/page2/"))
+require_fragment(blog, "Page 1 of 2")
+older_posts = read_page(site_dir, "blog/page2/index.html")
+require_fragment(older_posts, %(rel="prev" href="#{baseurl}/blog/"))
+require_fragment(older_posts, "Page 2 of 2")
+require_fragment(older_posts, %(href="#{baseurl}/#{post_path}"))
+abort "Pagination repeated a newer post" if older_posts.include?(%(href="#{baseurl}/#{showcase_path}"))
+
+archive = read_page(site_dir, "tags/index.html")
+require_fragment(archive, 'id="markdown"')
+require_fragment(archive, %(href="#{baseurl}/#{showcase_path}"))
+not_found = read_page(site_dir, "404.html")
+require_fragment(not_found, 'name="robots" content="noindex"')
+require_fragment(not_found, %(href="#{baseurl}/search/"))
+search = read_page(site_dir, "search/index.html")
+require_fragment(search, %(data-search-index="#{baseurl}/search-index.json"))
+require_fragment(search, 'aria-label="Color theme"')
+
+search_entries = JSON.parse(File.read(File.join(site_dir, "search-index.json"), encoding: "UTF-8"))
+abort "Search index includes excluded pages" if search_entries.any? { |entry| entry.fetch("url").end_with?("/404.html") }
+search_paths = search_entries.map { |entry| entry.fetch("url") }
+abort "Search index contains duplicate URLs" unless search_paths.uniq == search_paths
+search_post = search_entries.find { |entry| entry.fetch("url") == "#{baseurl}/#{showcase_path}" }
+abort "Search index is missing post content" unless search_post&.fetch("text")&.include?("Morning loop")
+abort "Search index is missing pages" unless search_paths.include?("#{baseurl}/about/")
+
+feed = read_page(site_dir, "feed.xml")
+require_fragment(feed, '<rss version="2.0"')
+require_fragment(feed, "<link>#{origin}#{baseurl}/#{showcase_path}</link>")
+sitemap = read_page(site_dir, "sitemap.xml")
+require_fragment(sitemap, "<loc>#{origin}#{baseurl}/#{showcase_path}</loc>")
+abort "Sitemap includes the 404 page" if sitemap.include?("/404.html")
 
 guide = read_page(site_dir, "getting-started/index.html")
 require_fragment(guide, "language-ruby")
@@ -98,6 +145,8 @@ require_fragment(koko, 'class="development-panel"')
 catalog = read_page(site_dir, "catalog/index.html")
 require_fragment(catalog, %(src="#{baseurl}/assets/example/catalog.js"))
 require_fragment(catalog, %(href="#{baseurl}/catalog/index.json"))
+require_fragment(catalog, "jackal-full-width")
+require_fragment(catalog, "Download catalog JSON")
 
 orgs = JSON.parse(File.read(File.join(site_dir, "catalog/index.json"))).map { |entry| entry.fetch("organization") }
 abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[KokoStreamTV SunshineStream Themerr]
@@ -106,8 +155,8 @@ abort "Catalog JSON contains unexpected organizations" unless orgs.sort == %w[Ko
    assets/jackal/landing/chrome.css assets/jackal/landing/sections.css assets/jackal/fonts/manrope.woff2
    assets/example/jackal.svg assets/example/catalog.js assets/example/sunshine.js assets/example/sunshine-brand.css
    assets/example/themerr-brand.css assets/example/koko-brand.css assets/example/maple-makers.css
-   assets/example/trail-ledger.css].each do |path|
+   assets/example/trail-ledger.css assets/example/jackal-theme.jpg assets/jackal/search.js].each do |path|
   abort "Missing static asset #{path}" unless File.file?(File.join(site_dir, path))
 end
 
-puts "Verified #{pages.size} pages, their URLs and assets, and the catalog JSON."
+puts "Verified #{pages.size} pages, their URLs and assets, and the feed, sitemap, search index, and catalog."

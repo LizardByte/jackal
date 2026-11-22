@@ -3,6 +3,7 @@ layout: product
 title: Trail Ledger
 permalink: /examples/product/
 product:
+  social: []
   name: Trail Ledger
   url: /examples/product/
   brand_styles: /assets/example/trail-ledger.css

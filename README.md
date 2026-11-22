@@ -32,6 +32,9 @@ For a PR, copy the preview command from the CI run summary or preview comment.
 It serves the files GitHub already built. See [Build and preview a Jackal site](docs/build-and-preview.md)
 for the reusable workflow, GitHub Pages publishing, and generated catalogs.
 
+See [Publishing and migration](docs/publishing.md) for feeds, search, pagination,
+post metadata, opt-in integrations, and hooks for existing project pages.
+
 ## Use Jackal
 
 For a Jekyll build in GitHub Actions or on your machine, add Jackal to the site's

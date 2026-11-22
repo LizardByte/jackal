@@ -1,0 +1,17 @@
+[
+  {%- assign entries = site.html_pages | concat: site.posts | uniq -%}
+  {%- assign separator = '' -%}
+  {%- for entry in entries -%}
+    {%- unless entry.noindex or entry.search == false or entry.title == nil -%}
+      {{ separator }}
+      {
+        "title": {{ entry.title | jsonify }},
+        "url": {{ entry.url | relative_url | jsonify }},
+        "description": {{ entry.description | default: entry.excerpt | strip_html | normalize_whitespace | jsonify }},
+        "text": {{ entry.content | markdownify | strip_html | normalize_whitespace | truncate: 20000 | jsonify }},
+        "tags": {{ entry.tags | jsonify }}
+      }
+      {%- assign separator = ',' -%}
+    {%- endunless -%}
+  {%- endfor %}
+]

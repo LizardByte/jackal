@@ -1,6 +1,27 @@
 :root {
   --jackal-prose-width: 67ch;
   --jackal-radius: 1rem;
+  --jackal-code-background: var(--jackal-muted-surface);
+  --jackal-code-text: var(--jackal-ink);
+  --jackal-code-keyword: var(--jackal-accent);
+  --jackal-code-literal: light-dark(#316043, #a3d5b0);
+  --jackal-code-comment: var(--jackal-muted);
+}
+
+:root[data-theme="light"][data-code-light="ayu"], :root[data-theme="dark"][data-code-dark="ayu"] {
+  --jackal-code-background: #fff7e8;
+  --jackal-code-text: #322e25;
+  --jackal-code-keyword: #953c14;
+  --jackal-code-literal: #416314;
+  --jackal-code-comment: #696252;
+}
+
+:root[data-theme="light"][data-code-light="slate"], :root[data-theme="dark"][data-code-dark="slate"] {
+  --jackal-code-background: #202a37;
+  --jackal-code-text: #e4eef8;
+  --jackal-code-keyword: #b0c4ff;
+  --jackal-code-literal: #9bdeb9;
+  --jackal-code-comment: #b5c2cd;
 }
 
 .jackal-main { min-height: 56vh; padding-bottom: clamp(3rem, 9vw, 8rem); }
@@ -128,6 +149,8 @@
 .jackal-faq details > div { margin-inline-start: 1.15rem; }
 
 .jackal-reading { max-width: 51rem; }
+.jackal-reading.jackal-full-width { max-width: var(--jackal-landing-width); }
+.jackal-full-width > .jackal-prose { max-width: none; }
 .jackal-page-header { margin-block: clamp(2rem, 6vw, 4.75rem) 1.5rem; }
 .jackal-page-header h1 { font-size: clamp(2.4rem, 6vw, 4.75rem); }
 .jackal-prose { max-width: var(--jackal-prose-width); overflow-wrap: break-word; }
@@ -139,7 +162,8 @@
 
 .jackal-prose pre, .jackal-prose :not(pre) > code {
   border-radius: 0.4rem;
-  background: var(--jackal-muted-surface);
+  background: var(--jackal-code-background);
+  color: var(--jackal-code-text);
 }
 
 .jackal-prose :not(pre) > code { padding: 0.1em 0.28em; }
@@ -147,9 +171,9 @@
 .jackal-prose table { width: 100%; margin-block: 1em; border-collapse: collapse; }
 .jackal-prose :is(th, td) { padding: .4rem .65rem; border: 1px solid var(--jackal-border); text-align: start; }
 .jackal-prose th { background: var(--jackal-muted-surface); }
-.jackal-prose .highlight :is(.k, .kd, .kn, .na, .nb) { color: var(--jackal-accent); }
-.jackal-prose .highlight :is(.s, .s1, .s2, .m, .mi) { color: light-dark(#316043, #a3d5b0); }
-.jackal-prose .highlight :is(.c, .c1) { color: var(--jackal-muted); }
+.jackal-prose .highlight :is(.k, .kd, .kn, .na, .nb) { color: var(--jackal-code-keyword); }
+.jackal-prose .highlight :is(.s, .s1, .s2, .m, .mi) { color: var(--jackal-code-literal); }
+.jackal-prose .highlight :is(.c, .c1) { color: var(--jackal-code-comment); }
 .jackal-catalog-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-block: 1.5rem; }
 .jackal-catalog-toolbar[hidden] { display: none; }
 .jackal-catalog-toolbar label { display: grid; gap: 0.25rem; flex: 1 1 18rem; }
@@ -173,6 +197,36 @@
 .jackal-prose > h2 + p, .jackal-prose > h3 + p, .jackal-meta + .jackal-prose { margin-top: .75em; }
 .jackal-post-card h3 { margin-top: .45rem; }
 .jackal-post-card h3 a:hover { color: var(--jackal-accent); }
+.jackal-post-cover, .jackal-post-thumbnail {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--jackal-border);
+  border-radius: .65rem;
+}
+.jackal-post-cover { margin-block: 1.5rem; }
+.jackal-post-thumbnail { aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: .7rem; }
+.jackal-authors, .jackal-tags, .jackal-badges, .jackal-share, .jackal-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem .85rem;
+  padding: 0;
+  list-style: none;
+}
+.jackal-authors li { display: inline-flex; align-items: center; gap: .4rem; }
+.jackal-authors img { border-radius: 50%; object-fit: cover; }
+.jackal-tags a {
+  display: inline-block;
+  padding: .14rem .55rem;
+  border: 1px solid var(--jackal-border);
+  border-radius: 2rem;
+  font-size: .88rem;
+}
+.jackal-pagination { margin-block: 2rem; }
+.jackal-affiliate, .jackal-comments { margin-block: 2rem; }
+.jackal-search-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+.jackal-search-results { padding-inline-start: 1.2rem; }
+#jackal-search-results p { margin-block: .25rem 1rem; }
 
 @media (max-width: 46rem) {
   .jackal-hero--with-image { grid-template-columns: minmax(0, 1fr); }

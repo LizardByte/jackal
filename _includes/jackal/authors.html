@@ -1,0 +1,22 @@
+{% assign authors = page.authors | default: page.author %}
+{% if authors %}
+  <ul class="jackal-authors" aria-label="Authors">
+    {% for author in authors %}
+      {% assign profile = site.data.authors[author] | default: author %}
+      {% assign name = profile.name | default: profile.github | default: profile %}
+      {% assign avatar = profile.avatar | default: profile.avatar_url %}
+      {% assign author_url = profile.url %}
+      {% if avatar == nil and profile.github %}
+        {% assign avatar = 'https://github.com/' | append: profile.github | append: '.png?size=64' %}
+      {% endif %}
+      {% if author_url == nil and profile.github %}
+        {% assign author_url = 'https://github.com/' | append: profile.github %}
+      {% endif %}
+      <li>
+        {% if avatar %}<img src="{% include jackal/url.html url=avatar %}" width="32" height="32" loading="lazy" alt="">{% endif %}
+        {% if author_url %}<a href="{% include jackal/url.html url=author_url %}">{{ name | escape }}</a>
+        {% else %}{{ name | escape }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

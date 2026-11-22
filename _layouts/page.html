@@ -1,7 +1,9 @@
 ---
 layout: jackal
 ---
-<article class="jackal-wrap jackal-reading">
+<article class="jackal-wrap jackal-reading{% if page.full_width or page['full-width'] %} jackal-full-width{% endif %}">
   {% include jackal/page-header.html %}
-  <div class="jackal-prose">{{ content }}</div>
+  {% include jackal/prose.html content=content %}
+  {% include jackal/affiliate.html %}
+  {% include jackal/comments.html %}
 </article>

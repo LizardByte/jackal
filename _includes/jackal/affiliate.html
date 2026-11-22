@@ -1,0 +1,11 @@
+{% assign products = page.affiliate_products %}
+{% if products.size > 0 %}
+  <aside class="jackal-affiliate" aria-label="Affiliate links">
+    <p>{{ site.jackal.affiliate_disclosure | default: 'We may earn a commission from purchases made through these links.' | escape }}</p>
+    <ul>
+      {% for product in products %}
+        <li><a href="{% include jackal/url.html url=product.url %}" rel="sponsored">{{ product.name | escape }}</a></li>
+      {% endfor %}
+    </ul>
+  </aside>
+{% endif %}

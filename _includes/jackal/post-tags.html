@@ -1,0 +1,7 @@
+{% if include.tags.size > 0 and site.jackal.tags %}
+  <ul class="jackal-tags" aria-label="Tags">
+    {% for tag in include.tags %}
+      <li><a href="{{ site.jackal.tags | relative_url | escape }}#{{ tag | url_encode | replace: '+', '%20' | escape }}">{{ tag | escape }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}

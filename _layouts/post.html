@@ -1,11 +1,35 @@
 ---
 layout: jackal
 ---
-<article class="jackal-wrap jackal-reading">
+<article class="jackal-wrap jackal-reading{% if page.full_width or page['full-width'] %} jackal-full-width{% endif %}">
   {% include jackal/page-header.html %}
   <p class="jackal-meta">
     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
-    {% if page.author %}<span> · {{ page.author | escape }}</span>{% endif %}
+    {% if page.reading_time or page.readtime %}
+      {% assign words = content | strip_html | number_of_words %}
+      {% assign minutes = words | plus: 199 | divided_by: 200 | at_least: 1 %}
+      <span> · {{ minutes }} min read</span>
+    {% endif %}
   </p>
-  <div class="jackal-prose">{{ content }}</div>
+  {% include jackal/authors.html %}
+  {% include jackal/github-badges.html %}
+  {% assign covers = page.cover | default: page['cover-img'] %}
+  {% for cover in covers %}
+    <img class="jackal-post-cover" src="{% include jackal/url.html url=cover %}" alt="{{ page.cover_alt | default: '' | escape }}">
+  {% endfor %}
+  {% include jackal/prose.html content=content %}
+  {% include jackal/post-tags.html tags=page.tags %}
+  {% include jackal/affiliate.html %}
+  {% include jackal/share.html %}
+  {% if page.previous or page.next %}
+    <nav class="jackal-pagination" aria-label="Adjacent posts">
+      {% if page.previous %}
+        <a rel="prev" href="{{ page.previous.url | relative_url | escape }}">← {{ page.previous.title | escape }}</a>
+      {% endif %}
+      {% if page.next %}
+        <a rel="next" href="{{ page.next.url | relative_url | escape }}">{{ page.next.title | escape }} →</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+  {% include jackal/comments.html %}
 </article>

@@ -2,11 +2,17 @@
   {% assign jackal_post_limit = include.limit | default: include.posts.size %}
   {% for jackal_post in include.posts limit: jackal_post_limit %}
     <article class="media-category jackal-post-card">
+      {% assign thumbnail = jackal_post.thumbnail | default: jackal_post['thumbnail-img'] %}
+      {% if thumbnail %}
+        <img class="jackal-post-thumbnail" src="{% include jackal/url.html url=thumbnail %}"
+             loading="lazy" alt="{{ jackal_post.thumbnail_alt | default: '' | escape }}">
+      {% endif %}
       <time class="jackal-meta" datetime="{{ jackal_post.date | date_to_xmlschema }}">
         {{ jackal_post.date | date_to_string }}
       </time>
       <h3><a href="{{ jackal_post.url | relative_url | escape }}">{{ jackal_post.title | escape }}</a></h3>
       <p>{{ jackal_post.description | default: jackal_post.excerpt | strip_html | strip_newlines | escape }}</p>
+      {% include jackal/post-tags.html tags=jackal_post.tags %}
     </article>
   {% endfor %}
 </div>

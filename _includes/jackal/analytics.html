@@ -1,0 +1,5 @@
+{% assign measurement_id = site.jackal.analytics | default: site.gtag %}
+{% if jekyll.environment == 'production' and measurement_id and site.jackal.analytics != false %}
+  <script src="{{ '/assets/jackal/analytics.js' | relative_url | escape }}"
+          data-measurement-id="{{ measurement_id | escape }}" defer></script>
+{% endif %}

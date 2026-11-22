@@ -26,6 +26,16 @@
     }
   }
 
+  function saveMode(selection) {
+    mode = selection;
+    try {
+      localStorage.setItem(storageKey, mode);
+    } catch {
+      // Retain the selection for the current page.
+    }
+    applyTheme();
+  }
+
   function setupMenu() {
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.getElementById('navigation');
@@ -51,16 +61,14 @@
   document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.querySelector('.theme-toggle');
     if (toggle) {
-      toggle.addEventListener('click', () => {
-        mode = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        try {
-          localStorage.setItem(storageKey, mode);
-        } catch {
-          // Retain the selection for the current page.
-        }
-        applyTheme();
-      });
+      toggle.addEventListener('click', () => saveMode(root.dataset.theme === 'dark' ? 'light' : 'dark'));
       toggle.hidden = false;
+    }
+    const select = document.querySelector('.theme-select');
+    if (select) {
+      select.value = mode;
+      select.addEventListener('change', () => saveMode(select.value));
+      select.hidden = false;
     }
     applyTheme();
     system.addEventListener('change', applyTheme);

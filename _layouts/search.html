@@ -1,0 +1,17 @@
+---
+layout: page
+search: false
+---
+{% assign search_index = site.jackal.search_index | default: '/search-index.json' %}
+<form class="jackal-search" role="search" action="{{ page.url | relative_url | escape }}"
+      data-search-index="{{ search_index | relative_url | escape }}">
+  <label for="jackal-query">Search pages and posts</label>
+  <div class="jackal-search-controls">
+    <input class="jackal-input" type="search" id="jackal-query" name="q" required>
+    <button class="button button-outline" type="submit">Search</button>
+  </div>
+  <noscript>Site search requires JavaScript.</noscript>
+</form>
+<p id="jackal-search-status" role="status"></p>
+<ul class="jackal-search-results" id="jackal-search-results"></ul>
+<script src="{{ '/assets/jackal/search.js' | relative_url | escape }}" defer></script>

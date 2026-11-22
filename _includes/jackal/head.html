@@ -2,7 +2,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% assign jackal_title = jackal_product.name | default: site.jackal.name | default: site.title %}
-  {% assign jackal_description = page.description | default: page.hero.description | default: site.description %}
+  {% assign jackal_description = page.description | default: page.hero.description | default: page.excerpt | default: site.description %}
   {% if page.layout == 'landing' %}
     <title>{{ page.title | default: jackal_title | escape }}</title>
   {% else %}
@@ -13,6 +13,30 @@
   {% endif %}
   {% if site.url and site.url != empty %}
     <link rel="canonical" href="{{ page.url | absolute_url | escape }}">
+    <meta property="og:url" content="{{ page.url | absolute_url | escape }}">
+  {% endif %}
+  {% assign social_title = page.share_title | default: page['share-title'] | default: page.title | default: jackal_title %}
+  {% assign social_description = page.share_description | default: page['share-description'] | default: jackal_description %}
+  {% assign social_media = page.share_image | default: page['share-img'] | default: page.cover
+    | default: page['cover-img'] | default: site.jackal.share_image %}
+  {% assign social_image = social_media | first | default: social_media %}
+  <meta property="og:site_name" content="{{ jackal_title | escape }}">
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ social_title | escape }}">
+  <meta name="twitter:title" content="{{ social_title | escape }}">
+  {% if social_description %}
+    <meta property="og:description" content="{{ social_description | strip_html | normalize_whitespace | escape }}">
+    <meta name="twitter:description" content="{{ social_description | strip_html | normalize_whitespace | escape }}">
+  {% endif %}
+  <meta name="twitter:card" content="{% if social_image %}summary_large_image{% else %}summary{% endif %}">
+  {% if social_image %}
+    <meta property="og:image" content="{{ social_image | absolute_url | escape }}">
+    <meta name="twitter:image" content="{{ social_image | absolute_url | escape }}">
+  {% endif %}
+  {% if page.noindex %}<meta name="robots" content="noindex">{% endif %}
+  {% if site.jackal.feed %}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}"
+          href="{{ site.jackal.feed | relative_url | escape }}">
   {% endif %}
   {% assign jackal_icon = jackal_product.icon | default: site.jackal.icon %}
   {% if jackal_icon %}
@@ -30,10 +54,11 @@
   {% if jackal_product.brand_styles %}
     <link rel="stylesheet" href="{% include jackal/url.html url=jackal_product.brand_styles %}">
   {% endif %}
-  {% for jackal_style in site.jackal.styles %}
-    <link rel="stylesheet" href="{% include jackal/url.html url=jackal_style %}">
-  {% endfor %}
-  {% for jackal_style in page.styles %}
-    <link rel="stylesheet" href="{% include jackal/url.html url=jackal_style %}">
-  {% endfor %}
+  {% include jackal/resources.html kind='style' resources=site.jackal.styles %}
+  {% assign external_styles = page['ext-css'] %}
+  {% include jackal/resources.html kind='style' resources=external_styles %}
+  {% include jackal/resources.html kind='style' resources=page.css %}
+  {% include jackal/resources.html kind='style' resources=page.styles %}
+  {% assign head_hooks = page.head_extra | default: page['head-extra'] %}
+  {% for hook in head_hooks %}{% include {{ hook }} %}{% endfor %}
 </head>

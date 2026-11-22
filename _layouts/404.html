@@ -1,0 +1,7 @@
+---
+layout: page
+---
+<p>The page you requested could not be found.</p>
+<p><a href="{{ '/' | relative_url | escape }}">Return home</a>
+  {% if site.jackal.search %} · <a href="{{ site.jackal.search | relative_url | escape }}">Search the site</a>{% endif %}
+</p>

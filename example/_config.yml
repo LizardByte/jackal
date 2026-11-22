@@ -5,11 +5,29 @@ description: A Jekyll theme for project sites, communities, blogs, and catalogs.
 url: https://example.org
 permalink: /:year-:month-:day-:title/
 strict_front_matter: true
+plugins:
+  - jekyll-paginate
+paginate: 1
+paginate_path: /blog/page:num/
 liquid:
   error_mode: strict
 
 jackal:
   name: Jackal
+  feed: /feed.xml
+  search: /search/
+  tags: /tags/
+  share: true
+  theme_control: select
+  code:
+    light: ayu
+    dark: slate
+  social:
+    - label: GitHub
+      icon: github
+      url: https://github.com/LizardByte/jackal
+    - label: RSS
+      url: /feed.xml
   product:
     logo: /assets/example/jackal.svg
     icon: /assets/example/jackal.svg
@@ -21,6 +39,8 @@ jackal:
       url: /examples/
     - label: Blog
       url: /blog/
+    - label: Search
+      url: /search/
     - label: GitHub
       url: https://github.com/LizardByte/jackal
   footer:

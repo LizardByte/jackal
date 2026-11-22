@@ -38,6 +38,8 @@
         {% endfor %}
       </nav>
     {% endif %}
+    {% include jackal/social.html %}
+    {% include jackal/edit.html %}
     {% if site.jackal.copyright %}
       <p class="copyright">© {{ site.time | date: '%Y' }} {{ site.jackal.copyright | escape }}</p>
     {% endif %}

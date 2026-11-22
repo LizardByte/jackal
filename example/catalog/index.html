@@ -1,8 +1,11 @@
 ---
-layout: catalog
+layout: page
 title: Release catalog
 description: A searchable catalog built from a Jekyll data file.
-scripts:
+full-width: true
+after-content:
+  - catalog-data-link.html
+js:
   - /assets/example/catalog.js
 ---
 <p>This example uses release links for the projects featured in the <a href="{{ '/examples/' | relative_url }}">examples gallery</a>.</p>
@@ -29,4 +32,3 @@ scripts:
     </tbody>
   </table>
 </div>
-<p><a href="{{ '/catalog/index.json' | relative_url }}">Download catalog JSON</a></p>

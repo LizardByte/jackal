@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/LizardByte/jackal"
   spec.files = Dir.chdir(__dir__) do
     Dir.glob("{_layouts,_includes,assets}/**/*").select { |path| File.file?(path) } +
-      %w[README.md LICENSE docs/landing-notices.md]
+      %w[README.md LICENSE docs/landing-notices.md docs/publishing.md]
   end
   spec.required_ruby_version = ">= 2.7"
   spec.add_runtime_dependency "jekyll", ">= 3.10", "< 5"

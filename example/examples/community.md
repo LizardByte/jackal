@@ -4,6 +4,7 @@ title: Maple Makers
 permalink: /examples/community/
 show_posts: false
 product:
+  social: []
   name: Maple Makers
   url: /examples/community/
   brand_styles: /assets/example/maple-makers.css

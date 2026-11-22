@@ -2,7 +2,17 @@
 layout: post
 title: Markdown showcase
 description: A sample field note with headings, lists, a table, code, an image, and a footnote.
-author: Jackal
+authors:
+  - name: Jackal maintainers
+    avatar: /assets/example/jackal.svg
+    url: /about/
+  - name: Trail Ledger
+    url: /examples/product/
+cover: /assets/example/jackal-theme.jpg
+cover_alt: Jackal’s homepage with a row of project links.
+thumbnail: /assets/example/jackal-theme.jpg
+tags: [markdown, examples]
+reading_time: true
 permalink: /blog/markdown-showcase/
 ---
 

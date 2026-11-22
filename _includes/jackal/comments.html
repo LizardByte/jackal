@@ -1,0 +1,23 @@
+{% assign giscus = site.jackal.giscus | default: site.giscus %}
+{% assign repo = giscus.repo | default: giscus.repository %}
+{% assign repo_id = giscus.repo_id | default: giscus['repository-id'] %}
+{% assign category_id = giscus.category_id | default: giscus['category-id'] %}
+{% if page.comments and repo and repo_id and category_id %}
+  <section class="jackal-comments" aria-label="Comments">
+    <script src="https://giscus.app/client.js"
+            data-repo="{{ repo | escape }}"
+            data-repo-id="{{ repo_id | escape }}"
+            data-category="{{ giscus.category | escape }}"
+            data-category-id="{{ category_id | escape }}"
+            data-mapping="{{ giscus.mapping | default: 'pathname' | escape }}"
+            {% if giscus.term %}data-term="{{ giscus.term | escape }}"{% endif %}
+            data-strict="{{ giscus.strict | default: '0' | escape }}"
+            data-reactions-enabled="{{ giscus.reactions_enabled | default: giscus['reactions-enabled'] | default: '1' | escape }}"
+            data-emit-metadata="0"
+            data-input-position="{{ giscus.input_position | default: giscus['input-position'] | default: 'bottom' | escape }}"
+            data-theme="{{ giscus.theme | default: 'preferred_color_scheme' | escape }}"
+            data-lang="{{ giscus.lang | default: page.lang | default: site.lang | default: 'en' | escape }}"
+            data-loading="lazy"
+            crossorigin="anonymous" async></script>
+  </section>
+{% endif %}
