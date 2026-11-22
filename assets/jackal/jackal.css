@@ -225,6 +225,7 @@
 .jackal-pagination { margin-block: 2rem; }
 .jackal-affiliate, .jackal-comments { margin-block: 2rem; }
 .jackal-search-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+#jackal-search-status:not(:empty) { display: block; margin-block: 1em; }
 .jackal-search-results { padding-inline-start: 1.2rem; }
 #jackal-search-results p { margin-block: .25rem 1rem; }
 

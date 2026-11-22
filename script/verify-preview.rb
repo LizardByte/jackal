@@ -99,6 +99,7 @@ require_fragment(not_found, %(href="#{baseurl}/search/"))
 search = read_page(site_dir, "search/index.html")
 require_fragment(search, %(data-search-index="#{baseurl}/search-index.json"))
 require_fragment(search, 'aria-label="Color theme"')
+require_fragment(search, '<output id="jackal-search-status" for="jackal-query">')
 
 search_entries = JSON.parse(File.read(File.join(site_dir, "search-index.json"), encoding: "UTF-8"))
 abort "Search index includes excluded pages" if search_entries.any? { |entry| entry.fetch("url").end_with?("/404.html") }

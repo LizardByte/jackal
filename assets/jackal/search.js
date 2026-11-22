@@ -1,7 +1,7 @@
 (() => {
   const form = document.querySelector('.jackal-search');
   const input = form.querySelector('input');
-  const status = document.getElementById('jackal-search-status');
+  const message = document.getElementById('jackal-search-status');
   const results = document.getElementById('jackal-search-results');
   let entries;
 
@@ -9,11 +9,11 @@
     results.replaceChildren();
     const terms = query.toLowerCase().trim().split(/\s+/u).filter(Boolean);
     if (!terms.length) {
-      status.textContent = 'Enter a search term.';
+      message.value = 'Enter a search term.';
       return;
     }
 
-    status.textContent = 'Searching…';
+    message.value = 'Searching…';
     try {
       entries ??= fetch(form.dataset.searchIndex).then(response => {
         if (!response.ok) throw new Error('Search index unavailable.');
@@ -42,21 +42,22 @@
         count += 1;
         if (count === 50) break;
       }
-      status.textContent = count ? `${count} result${count === 1 ? '' : 's'}` : 'No results found.';
+      const unit = count === 1 ? 'result' : 'results';
+      message.value = count ? `${count} ${unit}` : 'No results found.';
     } catch {
       entries = undefined;
-      status.textContent = 'Site search is temporarily unavailable.';
+      message.value = 'Site search is temporarily unavailable.';
     }
   }
 
   const params = new URLSearchParams(location.search);
   input.value = params.get('q') ?? '';
-  if (input.value) search(input.value);
+  if (input.value) void search(input.value);
   form.addEventListener('submit', event => {
     event.preventDefault();
     const url = new URL(location.href);
     url.searchParams.set('q', input.value);
     history.replaceState(null, '', url);
-    search(input.value);
+    void search(input.value);
   });
 })();

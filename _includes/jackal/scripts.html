@@ -4,6 +4,8 @@
 {% include jackal/resources.html kind='script' resources=page.js %}
 {% include jackal/resources.html kind='script' resources=page.scripts %}
 {% if page.mathjax == true %}
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-mml-chtml.js"
+          integrity="sha384-OrHfGTnIbkl0do3N76qW/uWr38o91N05sbSPuYBPLH+hG8X/dNSrjZf3AGjzrCwC"
+          crossorigin="anonymous" defer></script>
 {% endif %}
 {% include jackal/analytics.html %}
