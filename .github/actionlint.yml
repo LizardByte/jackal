@@ -1,0 +1,6 @@
+---
+paths:
+  # GitHub exposes both fields. Remove this when actionlint's schema includes them.
+  .github/workflows/jekyll-{build,preview-comment}.yml:
+    ignore:
+      - 'property "workflow_(repository|sha)" is not defined'

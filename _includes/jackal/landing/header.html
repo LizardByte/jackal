@@ -1,0 +1,50 @@
+{%- assign jackal_brand_size = jackal_product.logo_size | default: 40 -%}
+{%- assign jackal_action = jackal_product.action -%}
+{%- assign jackal_action_class = 'button button-outline header-action' -%}
+{%- if jackal_menu -%}
+  {%- assign jackal_action_class = 'header-action' -%}
+{%- elsif jackal_action.emphasis -%}
+  {%- assign jackal_action_class = 'button button-outline header-action header-action--emphasized' -%}
+{%- endif -%}
+{%- assign jackal_navigation = jackal_product.nav | default: site.jackal.nav -%}
+<header class="site-header{% if jackal_menu %} site-header--menu wrap{% endif %}">
+  {% unless jackal_menu %}<div class="wrap header-inner">{% endunless %}
+    {% include jackal/landing/brand.html size=jackal_brand_size %}
+    {% if jackal_menu and jackal_navigation.size > 0 %}
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">☰</span></button>
+    {% endif %}
+    {% if jackal_navigation.size > 0 %}
+      <nav id="navigation" class="navigation" aria-label="Main navigation">
+        {% for jackal_link in jackal_navigation %}
+          {% if jackal_link.items.size > 0 %}
+            <details class="navigation-group">
+              <summary>{{ jackal_link.label | escape }}</summary>
+              <ul class="navigation-dropdown">
+                {% for jackal_child_link in jackal_link.items %}
+                  <li>{% include jackal/nav-link.html link=jackal_child_link %}</li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% else %}
+            {% include jackal/nav-link.html link=jackal_link %}
+          {% endif %}
+        {% endfor %}
+      </nav>
+    {% endif %}
+    {% unless jackal_menu %}<div class="header-actions">{% endunless %}
+      {% include jackal/theme-control.html %}
+      {% if jackal_action %}
+        <a class="{{ jackal_action_class }}"
+           href="{% include jackal/url.html url=jackal_action.url scope=jackal_action.scope %}">
+          {%- if jackal_action.icon_position == 'start' -%}
+            {% include jackal/landing/icon.html name=jackal_action.icon %}
+          {%- endif -%}
+          {{- jackal_action.label | escape -}}
+          {%- unless jackal_action.icon_position == 'start' -%}
+            {%- if jackal_action.icon %} {% include jackal/landing/icon.html name=jackal_action.icon small=true %}{% endif -%}
+          {%- endunless -%}
+        </a>
+      {% endif %}
+    {% unless jackal_menu %}</div>{% endunless %}
+  {% unless jackal_menu %}</div>{% endunless %}
+</header>

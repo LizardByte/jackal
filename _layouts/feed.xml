@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <description>{{ site.jackal.feed_description | default: site.rss-description | default: site.description | default: site.title | xml_escape }}</description>
+    <link>{{ '/' | absolute_url | xml_escape }}</link>
+    <atom:link href="{{ page.url | absolute_url | xml_escape }}" rel="self" type="application/rss+xml"/>
+    {% assign excerpt_length = site.jackal.feed_excerpt_length | default: site.excerpt_length | default: 50 %}
+    {% for post in site.posts limit: 20 %}
+      {% assign post_url = post.url | absolute_url | xml_escape %}
+      <item>
+        <title>{{ post.title | strip_html | xml_escape }}</title>
+        <link>{{ post_url }}</link>
+        <guid isPermaLink="true">{{ post_url }}</guid>
+        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+        <description>
+          {% if post.subtitle %}{{ post.subtitle | strip_html | xml_escape }} - {% endif %}
+          {{ post.content | strip_html | normalize_whitespace | truncatewords: excerpt_length | xml_escape }}
+        </description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

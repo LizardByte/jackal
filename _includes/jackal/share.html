@@ -1,0 +1,36 @@
+{% assign share = page.share %}
+{% if share == nil %}{% assign share = site.jackal.share %}{% endif %}
+{% if share %}
+  {% assign share_url = page.url | absolute_url | url_encode %}
+  {% assign share_title = page.title | url_encode %}
+  {% assign default_platforms = 'bluesky,linkedin,email' | split: ',' %}
+  {% assign platforms = page.share_platforms | default: site.jackal.share_platforms | default: default_platforms %}
+  <nav class="jackal-share" aria-label="Share this post">
+    {% for platform in platforms %}
+      {% assign label = nil %}
+      {% case platform %}
+        {% when 'bluesky' %}
+          {% assign label = 'Bluesky' %}
+          {% capture href %}https://bsky.app/intent/compose?text={{ share_title }}%20{{ share_url }}{% endcapture %}
+        {% when 'linkedin' %}
+          {% assign label = 'LinkedIn' %}
+          {% capture href %}https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}{% endcapture %}
+        {% when 'email' %}
+          {% assign label = 'Email' %}
+          {% capture href %}mailto:?subject={{ share_title }}&body={{ share_url }}{% endcapture %}
+        {% when 'facebook' %}
+          {% assign label = 'Facebook' %}
+          {% capture href %}https://www.facebook.com/sharer/sharer.php?u={{ share_url }}{% endcapture %}
+        {% when 'reddit' %}
+          {% assign label = 'Reddit' %}
+          {% capture href %}https://www.reddit.com/submit?url={{ share_url }}&title={{ share_title }}{% endcapture %}
+        {% when 'x' %}
+          {% assign label = 'X' %}
+          {% capture href %}https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}{% endcapture %}
+      {% endcase %}
+      {% if label %}
+        <a href="{{ href | escape }}">{% include jackal/social-icon.html name=platform %} {{ label }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+{% endif %}

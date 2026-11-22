@@ -1,0 +1,9 @@
+{% assign before_hook = page.before_content | default: page['before-content'] %}
+{% assign after_hook = page.after_content | default: page['after-content'] %}
+{% for hook in before_hook %}
+  {% include {{ hook }} %}
+{% endfor %}
+<div class="jackal-prose">{{ include.content }}</div>
+{% for hook in after_hook %}
+  {% include {{ hook }} %}
+{% endfor %}

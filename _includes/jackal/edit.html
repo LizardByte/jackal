@@ -1,0 +1,4 @@
+{% if site.jackal.edit_url and page.path and page.edit != false %}
+  {% assign edit_url_tail = site.jackal.edit_url | slice: -1 %}
+  <a href="{{ site.jackal.edit_url | escape }}{% unless edit_url_tail == '/' %}/{% endunless %}{{ page.path | uri_escape | escape }}">Edit page</a>
+{% endif %}

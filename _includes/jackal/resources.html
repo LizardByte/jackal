@@ -1,0 +1,13 @@
+{% for resource in include.resources %}
+  {% assign path = resource.href | default: resource.src | default: resource %}
+  {% assign integrity = resource.integrity | default: resource.sri %}
+  {% capture attributes %}
+    {% if integrity %}integrity="{{ integrity | escape }}" crossorigin="{{ resource.crossorigin | default: 'anonymous' | escape }}"
+    {% elsif resource.crossorigin %}crossorigin="{{ resource.crossorigin | escape }}"{% endif %}
+  {% endcapture %}
+  {% if include.kind == 'style' %}
+    <link rel="stylesheet" href="{% include jackal/url.html url=path %}"{% if integrity or resource.crossorigin %} {{ attributes | strip }}{% endif %}>
+  {% else %}
+    <script src="{% include jackal/url.html url=path %}"{% if integrity or resource.crossorigin %} {{ attributes | strip }}{% endif %} defer></script>
+  {% endif %}
+{% endfor %}

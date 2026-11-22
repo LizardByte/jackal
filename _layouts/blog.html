@@ -1,0 +1,20 @@
+---
+layout: jackal
+---
+<div class="jackal-wrap jackal-catalog">
+  {% include jackal/page-header.html %}
+  <div class="jackal-prose">{{ content }}</div>
+  {% assign blog_posts = paginator.posts | default: site.posts %}
+  {% include jackal/post-grid.html posts=blog_posts %}
+  {% if paginator.total_pages > 1 %}
+    <nav class="jackal-pagination" aria-label="Blog pages">
+      {% if paginator.previous_page %}
+        <a rel="prev" href="{{ paginator.previous_page_path | relative_url | escape }}">← Newer posts</a>
+      {% endif %}
+      <span>Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+      {% if paginator.next_page_path %}
+        <a rel="next" href="{{ paginator.next_page_path | relative_url | escape }}">Older posts →</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+</div>

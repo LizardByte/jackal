@@ -1,0 +1,23 @@
+{% if include.items.size > 0 %}
+  <div class="jackal-carousel" data-jackal-carousel
+       data-carousel-label="{{ include.label | default: 'Image gallery' | escape }}">
+    <ul class="jackal-carousel-track" data-carousel-track>
+      {% for slide in include.items %}
+        <li class="jackal-carousel-slide">
+          {% include jackal/media.html image=slide eager=forloop.first %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if include.items.size > 1 %}
+      <div class="jackal-carousel-controls" data-carousel-controls hidden>
+        <button type="button" class="button button-outline" data-carousel-prev>
+          <span aria-hidden="true">←</span><span class="jackal-visually-hidden">Previous image</span>
+        </button>
+        <output data-carousel-position></output>
+        <button type="button" class="button button-outline" data-carousel-next>
+          <span aria-hidden="true">→</span><span class="jackal-visually-hidden">Next image</span>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,28 @@
+<!doctype html>
+{% assign jackal_product = page.product | default: site.jackal.product %}
+{% assign jackal_menu = false %}
+{% if jackal_product.navigation == 'menu' %}{% assign jackal_menu = true %}{% endif %}
+<html lang="{{ page.lang | default: site.lang | default: 'en' | escape }}"
+      data-jackal-container="{{ jackal_product.container | default: 'standard' | escape }}"
+      data-jackal-density="{{ jackal_product.density | default: 'comfortable' | escape }}"
+      data-jackal-type="{{ jackal_product.typography | default: 'standard' | escape }}"
+      data-code-light="{{ page.code.light | default: site.jackal.code.light | default: 'default' | escape }}"
+      data-code-dark="{{ page.code.dark | default: site.jackal.code.dark | default: 'default' | escape }}">
+  {% include jackal/head.html %}
+  <body{% if page.layout == 'product' %} class="jackal-product"{% endif %}>
+    <a class="skip" href="#main">Skip to content</a>
+    {% unless jackal_product.icon_style == 'glyph' %}
+      {% assign jackal_icons = jackal_product.icons | default: 'jackal/landing/icons.html' %}
+      {% include {{ jackal_icons }} %}
+    {% endunless %}
+    {% include jackal/landing/header.html %}
+    <main id="main"{% unless page.layout == 'landing' or page.layout == 'home' %} class="jackal-main"{% endunless %}
+          tabindex="-1">
+      {{ content }}
+    </main>
+    {% include jackal/landing/footer.html %}
+    {% assign footer_hooks = page.footer_extra | default: page['footer-extra'] %}
+    {% for hook in footer_hooks %}{% include {{ hook }} %}{% endfor %}
+    {% include jackal/scripts.html %}
+  </body>
+</html>

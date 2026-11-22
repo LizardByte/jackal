@@ -1,0 +1,13 @@
+:root {
+  --jackal-paper: light-dark(#f6f7f2, #141812);
+  --jackal-ink: light-dark(#20271f, #f0f2e9);
+  --jackal-muted: light-dark(#606b5d, #a6afa0);
+  --jackal-subtle: light-dark(#687160, #8e9b86);
+  --jackal-surface: light-dark(#edf0e7, #1e251a);
+  --jackal-border: light-dark(#d8dfd1, #343f2d);
+  --jackal-accent: light-dark(#426b2a, #a9dd7a);
+  --jackal-button: light-dark(#22301d, #b4e287);
+  --jackal-on-button: light-dark(#f6f7f2, #18210f);
+  --jackal-button-hover: light-dark(#3c5133, #c8efa3);
+  --jackal-panel-glow: light-dark(#9bcc6426, #9bcc6411);
+}

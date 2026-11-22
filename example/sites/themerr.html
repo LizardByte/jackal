@@ -1,0 +1,122 @@
+---
+layout: landing
+title: "Themerr — Theme music for Plex and Jellyfin"
+description: "Give your Plex or Jellyfin library a soundtrack. Themerr adds theme music to movies, TV shows, and collections using the community-powered ThemerrDB."
+permalink: /themerr/
+product:
+  theme_control: button
+  social: []
+  name: Themerr
+  brand_styles: /assets/example/themerr-brand.css
+  default_theme: dark
+  icon_style: glyph
+  density: compact
+  container: narrow
+  logo_size: 37
+  url: /themerr/
+  logo: https://themerr.lizardbyte.dev/assets/themerr-icon.png
+  icon: https://themerr.lizardbyte.dev/assets/themerr-icon.png
+  nav:
+    - label: "Features"
+      url: "#features"
+    - label: "How it works"
+      url: "#how-it-works"
+    - label: "ThemerrDB"
+      url: "https://themerr.lizardbyte.dev/ThemerrDB/"
+      icon: external
+  action:
+    label: "Get Themerr"
+    url: "#get-themerr"
+    icon: external
+    emphasis: true
+  footer:
+    tagline: Theme music for Plex and Jellyfin.
+    action:
+      label: "View on GitHub"
+      url: "https://github.com/Themerr/Themerr"
+      icon: external
+    links:
+      - label: "Explore projects"
+        url: "/"
+        scope: umbrella
+      - label: "Get support"
+        url: "/support/"
+        scope: umbrella
+      - label: "Privacy"
+        url: "/privacy/"
+        scope: umbrella
+      - label: "Terms"
+        url: "/terms/"
+        scope: umbrella
+      - label: "Website source"
+        url: "https://github.com/Themerr/Themerr.github.io"
+hero:
+  layout: centered
+  eyebrow: Theme music for your media server
+  marker: bars
+  title: Give your library
+  accent: a soundtrack.
+  description: Themerr finds theme music for your movies, shows, and collections and adds it to your Plex or Jellyfin library.
+  actions:
+    - label: Get Themerr
+      url: "#get-themerr"
+      icon: external
+      primary: true
+    - label: Installation guide
+      url: https://docs.lizardbyte.dev/projects/themerr/latest/
+      icon: external
+  highlights_label: Supported media servers
+  highlights:
+    - label: Plex
+      mark: plex-mark
+    - label: Jellyfin
+      mark: jellyfin-mark
+---
+<!-- Adapted from https://github.com/Themerr/Themerr.github.io. -->
+<section class="shell features" id="features" aria-label="Media server support">
+  <article class="feature">
+    <span class="plex-mark" aria-hidden="true"></span>
+    <h2>For your Plex library</h2>
+    <p>Find themes for movies, TV shows, and collections. Themerr supports Plex Movie and Plex Series agents
+      and can respond to library updates as new titles arrive.</p>
+  </article>
+  <article class="feature">
+    <span class="jellyfin-mark" aria-hidden="true"></span>
+    <h2>For your Jellyfin library</h2>
+    <p>Connect your server and choose your libraries. Themerr installs its matching Jellyfin connector and
+      can scan for theme music on a schedule.</p>
+  </article>
+</section>
+
+<section class="shell workflow" id="how-it-works" aria-labelledby="workflow-title">
+  <div class="section-heading section-heading--compact">
+    <p class="eyebrow">From setup to soundtrack</p>
+    <h2 id="workflow-title">How Themerr works</h2>
+  </div>
+  <ol class="steps">
+    <li><span class="step-number" aria-hidden="true">01</span><h3>Connect your server</h3>
+      <p>Run Themerr alongside Plex or Jellyfin and choose the libraries you want to give theme music.</p></li>
+    <li><span class="step-number" aria-hidden="true">02</span><h3>Find a theme</h3>
+      <p>Themerr matches titles against the community-maintained ThemerrDB. Explore matches and preview themes in the app.</p></li>
+    <li><span class="step-number" aria-hidden="true">03</span><h3>Keep it in sync</h3>
+      <p>Respond to Plex library updates or schedule scans to add theme music to your growing collection.</p></li>
+  </ol>
+</section>
+
+<section class="shell getting-started" id="get-themerr" aria-labelledby="get-title">
+  <div class="start-panel">
+    <div>
+      <p class="eyebrow">Make it yours</p>
+      <h2 id="get-title">Bring music to your library.</h2>
+      <p>Set up Themerr for Plex or Jellyfin with the installation guide.</p>
+    </div>
+    <div class="start-actions">
+      <a class="button button-primary" href="https://docs.lizardbyte.dev/projects/themerr/latest/">Read the docs <span aria-hidden="true">↗</span></a>
+      <a class="button button-outline" href="https://github.com/Themerr/Themerr/releases/latest">Latest release <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="database-panel">
+    <div><h3>Powered by ThemerrDB</h3><p>Browse the theme song database or contribute a theme for others to discover.</p></div>
+    <a class="text-link" href="https://themerr.lizardbyte.dev/ThemerrDB/">Explore ThemerrDB <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

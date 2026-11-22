@@ -1,0 +1,28 @@
+{% assign repo = page.github_repository | default: page['gh-repo'] %}
+{% assign badges = page.github_badges | default: page['gh-badge'] | join: ',' | split: ',' %}
+{% if repo and badges.size > 0 %}
+  <ul class="jackal-badges" aria-label="GitHub repository">
+    {% for badge in badges %}
+      {% case badge %}
+        {% when 'star', 'stars' %}{% assign metric = 'stars' %}
+        {% when 'fork', 'forks' %}{% assign metric = 'forks' %}
+        {% when 'watch', 'watchers' %}{% assign metric = 'watchers' %}
+        {% when 'issue', 'issues' %}{% assign metric = 'issues' %}
+        {% when 'license' %}{% assign metric = 'license' %}
+        {% when 'follow' %}{% assign metric = 'followers' %}
+        {% else %}{% assign metric = nil %}
+      {% endcase %}
+      {% if metric %}
+        {% if metric == 'followers' %}
+          {% assign owner = repo | split: '/' | first | uri_escape | escape %}
+          <li><a href="https://github.com/{{ owner }}"><img alt="GitHub followers" loading="lazy"
+            src="https://img.shields.io/github/followers/{{ owner }}"></a></li>
+        {% else %}
+          {% assign repo_path = repo | uri_escape | escape %}
+          <li><a href="https://github.com/{{ repo_path }}"><img alt="GitHub {{ metric }}" loading="lazy"
+            src="https://img.shields.io/github/{{ metric }}/{{ repo_path }}"></a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

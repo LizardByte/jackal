@@ -1,0 +1,61 @@
+---
+theme: jekyll-theme-jackal
+title: Jackal
+description: A Jekyll theme for project sites, communities, blogs, and catalogs.
+url: https://example.org
+permalink: /:year-:month-:day-:title/
+strict_front_matter: true
+plugins:
+  - jekyll-paginate
+paginate: 1
+paginate_path: /blog/page:num/
+liquid:
+  error_mode: strict
+
+jackal:
+  name: Jackal
+  feed: /feed.xml
+  search: /search/
+  tags: /tags/
+  share: true
+  code:
+    light: ayu
+    dark: slate
+  social:
+    - label: GitHub
+      icon: github
+      url: https://github.com/LizardByte/jackal
+    - label: RSS
+      url: /feed.xml
+  product:
+    logo: /assets/example/jackal.svg
+    icon: /assets/example/jackal.svg
+    navigation: menu
+  nav:
+    - label: Getting started
+      url: /getting-started/
+    - label: Examples
+      url: /examples/
+    - label: Blog
+      url: /blog/
+    - label: Search
+      url: /search/
+    - label: GitHub
+      url: https://github.com/LizardByte/jackal
+  footer:
+    - label: Getting started
+      url: /getting-started/
+    - label: Examples
+      url: /examples/
+    - label: About Jackal
+      url: /about/
+  copyright: LizardByte
+
+defaults:
+  - scope:
+      path: sites
+    values:
+      umbrella:
+        name: LizardByte
+        url: https://app.lizardbyte.dev/
+        logo: https://sunshine.lizardbyte.dev/assets/lizardbyte.svg

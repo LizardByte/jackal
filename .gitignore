@@ -1,2 +1,11 @@
 # JetBrains IDEs
 .idea/
+
+# Local builds and Bundler state
+.bundle/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+_site/
+/Gemfile.lock
+*.gem

@@ -1,0 +1,111 @@
+---
+name: Theme CI
+permissions: {}
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Build the example site
+    uses: ./.github/workflows/jekyll-build.yml
+    permissions:
+      contents: read
+    with:
+      source_dir: example
+      config_files: example/_config.yml
+
+  verify-preview:
+    name: Verify the rendered preview
+    if: github.event_name == 'pull_request'
+    needs: site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout validation script
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Download the same files offered to reviewers
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          name: ${{ needs.site.outputs.preview_artifact }}
+          path: ${{ runner.temp }}/preview
+
+      - name: Verify the published paths
+        run: |
+          ruby script/verify-preview.rb "$RUNNER_TEMP/preview" '' \
+            https://app.lizardbyte.dev/ https://example.org
+
+      - name: Test the Docker preview
+        run: |
+          container=$(docker run --rm -d -p 127.0.0.1:8080:80 \
+            --mount "type=bind,source=$RUNNER_TEMP/preview,target=/usr/share/nginx/html,readonly" nginx:alpine)
+          trap 'docker stop "$container" >/dev/null' EXIT
+          curl --retry 5 --retry-all-errors -fsS http://127.0.0.1:8080/ -o "$RUNNER_TEMP/preview-index.html"
+          grep -F 'href="/examples/"' "$RUNNER_TEMP/preview-index.html"
+          curl -fsS http://127.0.0.1:8080/blog/markdown-showcase/ | grep 'Markdown showcase'
+          curl -fsS http://127.0.0.1:8080/catalog/index.json | grep 'SunshineStream'
+
+  comment-preview:
+    name: Post the preview command
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.id == github.event.pull_request.base.repo.id
+    needs: verify-preview
+    uses: ./.github/workflows/jekyll-preview-comment.yml
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+
+  compatibility:
+    name: Check Jekyll 3 compatibility
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      JEKYLL_VERSION: '~> 3.10.0'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0  # v1.342.0
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build and verify the root site
+        run: |
+          bundle exec jekyll build --source example --destination _site/root --config example/_config.yml
+          ruby script/verify-preview.rb _site/root '' https://app.lizardbyte.dev/ https://example.org
+
+      - name: Build and verify a nested preview
+        env:
+          JEKYLL_SOURCE: ${{ github.workspace }}/example
+          CONFIG_FILES: example/_config.yml,example/_preview.yml
+          PREVIEW: 'true'
+        run: |
+          bundle exec ruby script/build-site.rb
+          ruby script/verify-preview.rb "$RUNNER_TEMP/jackal-preview/previews/42/ThemerrDB" \
+            /previews/42/ThemerrDB /previews/42 https://preview.example.org
+          grep -F 'url=/previews/42/ThemerrDB/' "$RUNNER_TEMP/jackal-preview/index.html"
+
+      - name: Check the preview comment and build the gem
+        run: |
+          node --test script/preview.test.cjs
+          gem build jekyll-theme-jackal.gemspec
